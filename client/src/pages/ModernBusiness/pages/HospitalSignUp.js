@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Media, Form, FormGroup, Input, Label, Alert, Button, Card, CardBody } from 'reactstrap';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Container, Row, Col, Media, Form, FormGroup, Input, Label, Alert, Button, Card, CardBody, A } from 'reactstrap';
+import { AvForm, AvField, AvRadio, AvRadioGroup } from 'availity-reactstrap-validation';
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import Select from 'react-select'
 
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
@@ -9,7 +11,14 @@ import FeatherIcon from 'feather-icons-react';
 //Import components
 import PageBreadcrumb from "../../../components/Shared/PageBreadcrumb";
 
-class HelpCenterSupportRequest extends Component {
+const options = [ // definintely implement live search for hospitals later with the api - react-select provides async search
+    { value: '5793230', label: 'CENTRAL VALLEY GENERAL HOSPITAL 1025 NORTH DOUTY STREET' },
+    { value: '53391362', label: 'LOS ROBLES HOSPITAL & MEDICAL CENTER - EAST CAMPUS 150 VIA MERIDA' },
+    { value: '11190023', label: 'EAST LOS ANGELES DOCTORS HOSPITAL' }
+  ]
+
+
+class HospitalSignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,9 +28,24 @@ class HelpCenterSupportRequest extends Component {
                 { id : 2, name : "Help Center", link : "#" },
                 { id : 3, name : "Support" },
             ],
+            submitMessage: false,
             isOpen : false
         }
         this.handleSubmit.bind(this);
+    }
+
+    handleValidSubmit = (e,values) => {
+        console.log(values)
+    //     axios.post('http://localhost:4000/donorQueue/create-donor-queue', values)
+    //   .then(res => {
+    //         console.log(res.data);
+    //         // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+
+    //         this.setState({
+    //             donors: res.data
+    //         })
+    //     });
+        this.setState({submitMessage: true})
     }
 
     handleSubmit = (event) =>{
@@ -58,7 +82,7 @@ class HelpCenterSupportRequest extends Component {
                         <Row className="justify-content-center">
                             <Col lg="12" className="text-center">
                                 <div className="page-next-level">
-                                    <h4 className="title">Request Eligibility as a Donor</h4>
+                                    <h4 className="title">Register your Hospital</h4>
                                     <div className="page-next">
                                         <nav className="d-inline-block">
                                          </nav>
@@ -73,37 +97,38 @@ class HelpCenterSupportRequest extends Component {
                                     <Card className="login_page border-0" style={{zIndex:1}}>
                                         <CardBody className="p-0">
                                             {/* <h4 className="card-title text-center">Sign up as a donor</h4> */}
-                                        <AvForm className="login-form mt-4">
+                                        <AvForm onValidSubmit = {this.handleValidSubmit} className="login-form mt-4">
                                             <Row>
-                                            <Col md="6">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="firstname">First name <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="firstname" id="firstname" placeholder="First Name" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter first name"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col md="6">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="lastname">Last name <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="user-check" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="lastname" id="lastname" placeholder="Last Name" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter first name"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
+                                            <Col md="12" className="mb-0">
+                                                <Alert isOpen={this.state.submitMessage} toggle={() => this.setState({submitMessage : false})} color="primary" >
+                                                    Thank you! We will get back to you soon via email regarding your account creation.
+                                                </Alert>
                                                 </Col>
                                                 <Col md="12">
+                                                <FormGroup className="position-relative">
+                                                        <Label for="HospitalID">Hospital Name and Address <span className="text-danger">*</span></Label>
+                                                        {/* <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i> */}
+                                                        <Select options={options} />
+                                                </FormGroup>
+                                                </Col>
+                                            {/* <Col md="12">
                                                     <FormGroup className="position-relative">
-                                                        <Label for="email">Your Email <span className="text-danger">*</span></Label>
+                                                        <Label for="HospitalID">Hospital Name and Address <span className="text-danger">*</span></Label>
+                                                        <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i>
+                                                        <AvField type="text" className="form-control pl-5" name="HospitalID" id="HospitalID" placeholder="First Name" required
+                                                            errorMessage=""
+                                                            validate={{
+                                                                required: {value: true, errorMessage: "Please enter your Hospital's Name and Address."},
+                                                            }}
+                                                        />
+                                                    </FormGroup>
+                                                </Col> */}
+
+                                                <Col md="12">
+                                                    <FormGroup className="position-relative">
+                                                        <Label for="Email">Hospital Email <span className="text-danger">*</span></Label>
                                                         <i><FeatherIcon icon="mail" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="email" id="email" placeholder="Enter Email" required
+                                                        <AvField type="text" className="form-control pl-5" name="Email" id="Email" placeholder="Enter Email" required
                                                             errorMessage=""
                                                             validate={{
                                                                 required: {value: true, errorMessage: "Please enter your email"},
@@ -115,106 +140,42 @@ class HelpCenterSupportRequest extends Component {
 
                                                 <Col md="12">
                                                     <FormGroup className="position-relative">
-                                                        <Label for="phone">Phone <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="phone" className="fea icon-sm icons" /></i>
-                                                        <AvField type="phone" className="form-control pl-5" name="phone" id="phone" placeholder="Enter phone number" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter your phone number"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col md="12">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="streetaddress">Street Address <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="home" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="streetaddress" id="streetaddress" placeholder="Enter address" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter your address"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col md="12">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="city">City <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="home" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="city" id="city" placeholder="Enter city" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter your city"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col md="12">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="state">State <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="home" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="state" id="state" placeholder="Enter state" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter your state"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col md="12">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="zip">Zip <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="home" className="fea icon-sm icons" /></i>
-                                                        <AvField type="number" className="form-control pl-5" name="zip" id="zip" placeholder="Enter zip" required
-                                                            errorMessage=""
-                                                            validate={{
-                                                                required: {value: true, errorMessage: "Please enter your zip code"},
-                                                            }}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-
-                                                <Col md="12">
-                                                    <FormGroup className="position-relative">
-                                                        <Label for="bloodtype">Blood Type <span className="text-danger">*</span></Label>
+                                                        <Label for="Username">Username <span className="text-danger">*</span></Label>
                                                         <i><FeatherIcon icon="heart" className="fea icon-sm icons" /></i>
-                                                        <AvField type="text" className="form-control pl-5" name="bloodtype" id="bloodtype" placeholder="Enter blood type" required
+                                                        <AvField type="text" className="form-control pl-5" name="Username" id="Username" placeholder="Enter Username" required
                                                             errorMessage=""
                                                             validate={{
-                                                                required: {value: true, errorMessage: "Please enter your blood type"},
+                                                                required: {value: true, errorMessage: "Please enter your username"},
                                                             }}
                                                         />
                                                     </FormGroup>
                                                 </Col>
-
                                                 <Col md="12">
                                                     <FormGroup className="position-relative">
-                                                        <Label for="releaseform">Release form <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="file" className="fea icon-sm icons" /></i>
-                                                        <AvField type="file" className="form-control pl-5" name="releaseform" id="releaseform" placeholder="Please upload your hospital release form" required
+                                                        <Label for="Password">Password <span className="text-danger">*</span></Label>
+                                                        <i><FeatherIcon icon="heart" className="fea icon-sm icons" /></i>
+                                                        <AvField type="password" className="form-control pl-5" name="Password" id="Password" placeholder="Enter Password" required
                                                             errorMessage=""
                                                             validate={{
-                                                                required: {value: true, errorMessage: "Please upload your form"},
+                                                                required: {value: true, errorMessage: "Please enter your password"},
                                                             }}
                                                         />
                                                     </FormGroup>
                                                 </Col>
-
-                                                <Col md="12">
+                                                {/* <Col md="12">
                                                     <FormGroup>
                                                         <div className="custom-control custom-checkbox">
                                                             <Input type="checkbox" className="custom-control-input" id="customCheck1"/>
-                                                            <Label className="custom-control-label" for="customCheck1">I Accept <Link to="#" className="text-primary">Terms And Conditions</Link></Label>
+                                                            <Label className="custom-control-label" for="Accept">I Accept <Link to="/" className="text-primary">Terms And Conditions</Link></Label>
                                                         </div>
                                                     </FormGroup>
-                                                </Col>
+                                                </Col> */}
                                                 <Col md="12" className="mb-0">
                                                     <Button color="primary" block>Request Eligibility</Button>
                                                 </Col>
+                                                
+                                                
+
                                                 {/* <Col lg="12" className="mt-4 text-center">
                                                     <h6>Or Signup With</h6>
                                                     <ul className="list-unstyled social-icon mb-0 mt-3">
@@ -248,4 +209,4 @@ class HelpCenterSupportRequest extends Component {
     }
 }
 
-export default HelpCenterSupportRequest;
+export default HospitalSignUp;

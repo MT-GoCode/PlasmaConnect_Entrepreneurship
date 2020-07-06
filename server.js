@@ -48,8 +48,19 @@ const server = app.listen(port, () => {
 // app.use((req, res, next) => {
 //   next(createError(404));
 // });
-
-
+// Hospital. Will move to separate file later
+router.route('/create-hospital').post((req, res, next) => {
+  console.log(req.body)
+  
+  // donorQueueSchema.create(req.body, (error, data) => {
+  //   if (error) {
+  //     return next(error)
+  //   } else {
+  //     console.log(data)
+  //     res.json(data)
+  //   }
+  // })
+});
 
 
 app.use(function (err, req, res, next) {

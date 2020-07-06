@@ -6,7 +6,8 @@ let mongoose = require('mongoose'),
 let donorQueueSchema = require('../models/DonorQueue');
 
 // CREATE donorQueue
-router.route('/create-donorQueue').post((req, res, next) => {
+router.route('/create-donor-queue').post((req, res, next) => {
+  console.log(req.body)
   donorQueueSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error)
