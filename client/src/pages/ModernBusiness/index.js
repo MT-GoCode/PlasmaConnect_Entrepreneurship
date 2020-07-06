@@ -79,7 +79,7 @@ class Index extends Component {
                 {/* Hero Start */}
                 <Section/>
                 <About/>
-                <Team/>
+                {/* <Team/> */}
                 <ContactForm/> 
                 {/* ContactForm is making the TopBar turn white */}
                 

@@ -58,7 +58,7 @@ class Topbar extends Component {
                     //     { id : 32, title : "Saas", link : "/index-onepage", isOnePage : true }, 
                     // ],
                 },
-                { id : 3, title : "Team", link : "/#", isOpenSubMenu : false,
+                // { id : 3, title : "Team", link : "/#", isOpenSubMenu : false,
                     // child : [
                     //     { id : 1, title : "About Us", link : "/page-aboutus"},
                     //     { id : 2, title : "Services", link : "page-services"},
@@ -162,7 +162,7 @@ class Topbar extends Component {
                     //         ]
                     //     },
                     // ]
-                },
+                // },
                 { id : 4, title : "Contact", link : "/#", isOpenSubMenu : false,
                 // child : [
                 //     { title : "Documentations", link : "/documentation"},
@@ -268,7 +268,7 @@ class Topbar extends Component {
             scroll.scrollTo(975)
         }
         if (title == "Contact"){
-            scroll.scrollTo(1700)
+            scroll.scrollTo(1000)
         }
 
         

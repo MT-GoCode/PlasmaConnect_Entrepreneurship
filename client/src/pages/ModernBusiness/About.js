@@ -22,8 +22,8 @@ class About extends Component {
                                 <div className="section-title ml-lg-4">
                                     <h4 className="title mb-4">About</h4>
                                     <p className="text-muted">Start working with <span className="text-primary font-weight-bold">PlasmaConnect. </span>
-                                    PlasmaConnect will  connect potential donors with Plasma Collection Centers and Hospitals looking for a plasma source. PlasmaConnect will also provide Pharmaceutical Companies with a database of recovered patients for their clinical trials.</p>
-                                    <Link to="#" className="btn btn-primary mt-3">Join now</Link>
+                                    PlasmaConnect will connect potential donors with plasma collection centers and hospitals looking for a plasma source. PlasmaConnect will also provide pharmaceutical companies with a database of recovered patients for their clinical trials.</p>
+                                    <Link to="#" className="btn btn-primary mt-3">Join now!</Link>
                                 </div>
                             </Col>
                         </Row>
