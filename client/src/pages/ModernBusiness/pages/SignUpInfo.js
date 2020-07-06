@@ -99,7 +99,7 @@ class HelpCenterSupportRequest extends Component {
                                     
                                     <Col md="4" className="mt-4 mt-sm-0">
                                         <div className="text-md-right text-center">
-                                            <Link to="#" className="btn btn-light">Sign Up</Link>
+                                            <Link to="#" className="btn btn-light" >Coming Soon!</Link>
                                         </div>
                                     </Col>
                                 </Row>
@@ -118,7 +118,7 @@ class HelpCenterSupportRequest extends Component {
                                     
                                     <Col md="4" className="mt-4 mt-sm-0">
                                         <div className="text-md-right text-center">
-                                            <Link to="#" className="btn btn-light">Sign Up</Link>
+                                            <Link to="#" className="btn btn-light">Coming Soon!</Link>
                                         </div>
                                     </Col>
                                 </Row>
@@ -137,7 +137,7 @@ class HelpCenterSupportRequest extends Component {
                                     
                                     <Col md="4" className="mt-4 mt-sm-0">
                                         <div className="text-md-right text-center">
-                                            <Link to="#" className="btn btn-light">Sign Up</Link>
+                                            <Link to="#" className="btn btn-light">Coming Soon!</Link>
                                         </div>
                                     </Col>
                                 </Row>

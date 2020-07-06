@@ -33,7 +33,7 @@ class Partners extends Component {
                             {
                                 this.state.partners.map((partner, key) =>
                                     <Col lg={2} md={2} xs={6} key={key} className="text-center py-4">
-                                        <img src={partner.image} className="avatar avatar-ex-sm" alt="Landrick" />
+                                        <img src={partner.image} className="avatar avatar-ex-sm" alt="PlasmaConnect" />
                                     </Col>
                                 )
                             }

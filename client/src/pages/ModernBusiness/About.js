@@ -4,13 +4,13 @@ import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 //import images
-import about from '../../assets/images/coworking/about.jpg';
+import about from '../../assets/images/coworking/bloodabout.jpg';
 
 class About extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <React.Fragment >
                 <section className="section">
                     <Container>
                         <Row className="align-items-center">

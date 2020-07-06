@@ -58,7 +58,7 @@ class HelpCenterSupportRequest extends Component {
                         <Row className="justify-content-center">
                             <Col lg="12" className="text-center">
                                 <div className="page-next-level">
-                                    <h4 className="title">Request Eligibility as a Donor</h4>
+                                    <h4 className="title">(WIP) Request Eligibility as a Donor</h4>
                                     <div className="page-next">
                                         <nav className="d-inline-block">
                                          </nav>

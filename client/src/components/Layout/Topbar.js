@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Container } from "reactstrap";
+import * as Scroll from 'react-scroll';
+import { Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 //Import images
-import logodark from "../../assets/images/logo-light.png";
+import logodark from "../../assets/images/PlasmaConnectLogoDark.png";
+import { NavLink } from 'react-router-dom';
 
 class Topbar extends Component {
 
     constructor(props) {
         super(props);
+        // this.scrollTo = this.scrollTo.bind(this)
         this.state = { 
+            // showLinks: true,
             isOpen : false, 
             navLinks : [
                 //Note : each child and nested child must have unique id
                 { id : 1, title : "Home", link : "/" },
-                { id : 2, title : "About", link : "/#", isMegaMenu : true, isOpenSubMenu : false,
+                { id : 2, title : "About", link : "/#", isMegaMenu : true, isOpenSubMenu : false
                     // child : [
                     //     { id : 1, title : "Saas", link : "/index-saas" },
                     //     { id : 2, title : "Classic Saas", link : "/index-classic-saas" },
@@ -247,16 +252,37 @@ class Topbar extends Component {
         this.setState({navLinks : tmpLinks});
     }
 
+    scrollTo =(title) =>{
+        // if (window.location.href)
+        // if (window.location.pathname != "/") {
+        //     window.location.pathname = "/"    
+        // }
+        
+        if (title == "Home") { 
+            scroll.scrollTo(0)
+        }
+        if (title == "About") {
+            scroll.scrollTo(520);
+        }
+        if (title == "Team"){
+            scroll.scrollTo(975)
+        }
+        if (title == "Contact"){
+            scroll.scrollTo(1700)
+        }
+
+        
+        
+    }
+
     render() {
         return (
             <React.Fragment>
                 <header id="topnav" className="defaultscroll sticky">
                     <Container>
-                        <div>
                             <Link className="logo" to="/">
                                 <img src={logodark} id="brandLogo" height="24" alt=""/>
                             </Link>
-                        </div> 
 
                         
 
@@ -265,7 +291,7 @@ class Topbar extends Component {
                         </div>
 
                         <div className="buy-button">
-                            <a href="https://1.envato.market/landrickreactjs" target="_blank" rel="noopener noreferrer" id="buyButton" className="btn ">Log in</a>
+                            <a href="/signupinfo" rel="noopener noreferrer" id="buyButton" className="btn ">Log in</a>
                         </div>
 
                         
@@ -288,7 +314,9 @@ class Topbar extends Component {
                                     navLink.child ?
                                         <li className="has-submenu" key={key}>
                                             {/* child item(menu Item) - Level 1 */}
+                                            
                                             <Link to={navLink.link} onClick={(event) => {  event.preventDefault(); this.openBlock(navLink.id) } } >{navLink.title}</Link>
+                                            
                                             <span className="menu-arrow"></span>
                                                 {
                                                     navLink.isMegaMenu ?
@@ -363,7 +391,21 @@ class Topbar extends Component {
                                         </li>
                                     :
                                     // This below is how the button will appear
-                                        <li key={key}><Link to={navLink.link}>{navLink.title}</Link></li>
+                                    // <a href="#landing-about">{navLink.title}</a>
+//                                     <Link
+//     // activeClass="active"
+//     to="section1"
+//     // spy={true}
+//     // smooth={true}
+//     // offset={-70}
+//     // duration={500}
+// >{navLink.title}</Link>
+//  <a onClick={}>{navLink.title}</a> 
+                                    
+                                    // <li key={key}><Link to={navLink.link}>{navLink.title}</Link></li>
+                                    window.location.pathname == "/" ?
+                                    <li key={key}><Link onClick = {() => this.scrollTo(navLink.title)}>{navLink.title}</Link></li>
+                                    : <></>
                                     )
                                 }
                             </ul>

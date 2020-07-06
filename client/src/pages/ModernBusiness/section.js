@@ -98,8 +98,8 @@ class Section extends Component {
                                     <Col lg={{size:7, offset:1}} md={{size:6, order:2}} xs={{order:1}}>
                                         <div className="title-heading mt-4">
                                             <h1 className="heading title-dark text-white mb-3">PlasmaConnect </h1>
-                                            <p className="para-desc para-dark text-light">Slogan goes here</p>
-                                            <Link to="#"  className="btn btn-primary mb-2 mr-2">Get Started</Link>
+                                            <p className="para-desc para-dark text-light">An efficient solution for connecting blood donors with COVID-19 patients.</p>
+                                            <Link to="/signupinfo"  className="btn btn-primary mb-2 mr-2">Get Started</Link>
                                             {/* <div className="watch-video mt-4 pt-2">
                                                 
                                                 <Link  to="#" onClick={this.openModal} className="video-play-icon watch title-dark text-light mb-2 ml-1">

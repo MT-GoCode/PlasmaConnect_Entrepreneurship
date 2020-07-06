@@ -24,7 +24,7 @@ class ContactForm extends Component {
     }  
 
     componentDidMount() {
-        document.getElementById('topnav').classList.add('bg-white');
+        // document.getElementById('topnav').classList.add('bg-white');
         window.addEventListener("scroll", this.scrollNavigation, true);
       }
        // Make sure to remove the DOM listener when the component is unmounted.
@@ -130,14 +130,14 @@ class ContactForm extends Component {
                             <Col lg={7} md={{size:6, order:2}} xs={{order:1}}>
                                 <div className="title-heading ml-lg-4">
                                     <h4 className="mb-4">Contact Details</h4>
-                                    <p className="text-muted">Start working with <span className="text-primary font-weight-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                                    <p className="text-muted">Start working with <span className="text-primary font-weight-bold">PlasmaConnect</span> for an efficient solution for connecting blood donors with COVID-19 patients.</p>
                                     <Media className="contact-detail align-items-center mt-3">
                                         <div className="icon">
                                         <i><FeatherIcon icon="mail" className="fea icon-m-md text-dark mr-3" /></i>
                                         </div>
                                         <Media body className="content">
                                             <h4 className="title font-weight-bold mb-0">Email</h4>
-                                            <Link to="#" onClick={this.sendMail} className="text-primary ">contact@example.com</Link>
+                                            <Link to="#" onClick={this.sendMail} className="text-primary ">help@plasmaconnect.com</Link>
                                         </Media>
                                     </Media>
 
@@ -147,7 +147,7 @@ class ContactForm extends Component {
                                         </div>
                                         <Media body className="content">
                                             <h4 className="title font-weight-bold mb-0">Phone</h4>
-                                            <Link to="#" onClick={this.callNumber} className="text-primary ">+152 534-468-854</Link>
+                                            <Link to="#" onClick={this.callNumber} className="text-primary ">+1 534-468-854</Link>
                                         </Media>
                                     </Media>
 
@@ -157,7 +157,7 @@ class ContactForm extends Component {
                                         </div>
                                         <Media body className="content">
                                             <h4 className="title font-weight-bold mb-0">Location</h4>
-                                            <Link to="#" className="video-play-icon  text-primary">View on Google map</Link>
+                                            <Link to="#" className="video-play-icon  text-primary">View on Google maps</Link>
                                         </Media>
                                     </Media>
                                 </div>

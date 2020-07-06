@@ -13,8 +13,8 @@ import paypal from '../../assets/images/payments/paypal.png';
 import visa from '../../assets/images/payments/visa.png';
 
 //Import Images
-import logolight from "../../assets/images/logo-light.png";
-import logodark from "../../assets/images/logo-dark.png";
+import logolight from "../../assets/images/PlasmaConnectLogoLight.png";
+import logodark from "../../assets/images/PlasmaConnectLogoDark.png";
 
 class Footer extends Component {
 
@@ -51,7 +51,7 @@ class Footer extends Component {
                         <Link to="#" className="logo-footer">
                             <img src={this.props.isLight ? logodark : logolight} height="24" alt=""/>
                         </Link>
-                        <p className={ this.props.isLight ? "mt-4 text-muted" : "mt-4"}>Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                        <p className={ this.props.isLight ? "mt-4 text-muted" : "mt-4"}>Start working with PlasmaConnect for an efficient solution for connecting blood donors with COVID-19 patients.</p>
                         <ul className="list-unstyled social-icon social mb-0 mt-4">
                             <li className="list-inline-item mr-1"><Link to="" className="rounded"><i><FeatherIcon icon="facebook" className="fea icon-sm fea-social" /></i></Link></li>
                             <li className="list-inline-item mr-1"><Link to="" className="rounded"><i><FeatherIcon icon="instagram" className="fea icon-sm fea-social" /></i></Link></li>
@@ -108,7 +108,8 @@ class Footer extends Component {
                 <Row className="align-items-center">
                     <Col sm="6">
                         <div className="text-sm-left">
-                            <p className="mb-0">© 2020-21 Landrick. Develop by <a href="https://themesbrand.com/" target="_blank"  rel="noopener noreferrer" className="text-success">Themesbrand</a>.</p>
+                            <p className="mb-0">© 2020-21 PlasmaConnect. </p>
+                            {/* Develop by <a href="https://themesbrand.com/" target="_blank"  rel="noopener noreferrer" className="text-success">Themesbrand</a>.</p> */}
                         </div>
                     </Col>
 

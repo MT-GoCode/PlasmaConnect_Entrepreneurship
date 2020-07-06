@@ -18,7 +18,9 @@ class Footer extends Component {
                     <Container className="text-center">
                         <Row className="justify-content-center">
                             <Col xs={12}>
-                                <p className="mb-0">© {new Date().getFullYear()}-{new Date().getFullYear() + 1} Landrick. Design by Themesbrand</p>
+                            <p className="mb-0">© {new Date().getFullYear()}-{new Date().getFullYear() + 1} PlasmaConnect.</p>
+                             {/* Design by Themesbrand</p> */}
+                                {/* <p className="mb-0">© {new Date().getFullYear()}-{new Date().getFullYear() + 1} Landrick. Design by Themesbrand</p> */}
                             </Col>
                         </Row>
                     </Container>
