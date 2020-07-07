@@ -29,12 +29,42 @@ class HospitalSignUp extends Component {
                 { id : 3, name : "Support" },
             ],
             submitMessage: false,
-            isOpen : false
+            isOpen : false,
+            HospitalID: null,
+            options: []
         }
         this.handleSubmit.bind(this);
+        this.handleIDChange.bind(this);
     }
+    
+    componentWillMount = () => {
+        axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
+      .then(res => {
+            let hospitals = res.data.features
+            let toState = hospitals.map((hospital) => {
+                return {
+                    value: hospital.attributes.ID,
+                    label: hospital.attributes.NAME + ' '+ hospital.attributes.ADDRESS}
+            })
+            // console.log(toState);
+            this.setState({options: toState})
+            // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+
+            // this.setState({
+            //     donors: res.data
+            // })
+        });
+        
+    }
+    handleIDChange = hospital => {
+        // console.log()
+        this.setState(
+          {HospitalID: hospital}
+        );
+      };
 
     handleValidSubmit = (e,values) => {
+        values.HospitalID = this.state.HospitalID.value
         console.log(values)
     //     axios.post('http://localhost:4000/donorQueue/create-donor-queue', values)
     //   .then(res => {
@@ -88,7 +118,7 @@ class HospitalSignUp extends Component {
                                          </nav>
                                     </div>
                                 </div>
-                            </Col>  
+                            </Col> 
                         </Row>
                         <center>
                         <div style = {{width:"50%"}} className="cover-user-img d-flex align-items-center">
@@ -108,7 +138,7 @@ class HospitalSignUp extends Component {
                                                 <FormGroup className="position-relative">
                                                         <Label for="HospitalID">Hospital Name and Address <span className="text-danger">*</span></Label>
                                                         {/* <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i> */}
-                                                        <Select options={options} />
+                                                        <Select options={this.state.options} value={this.state.HospitalID} onChange = {this.handleIDChange} />
                                                 </FormGroup>
                                                 </Col>
                                             {/* <Col md="12">
@@ -199,11 +229,6 @@ class HospitalSignUp extends Component {
                 </section>
                 
             </React.Fragment>
-
-            <section className="section">
-
-            
-        </section>
             </React.Fragment>
         );
     }

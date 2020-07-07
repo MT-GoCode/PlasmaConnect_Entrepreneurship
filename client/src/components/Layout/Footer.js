@@ -44,7 +44,7 @@ class Footer extends Component {
   render() {
     return (
       <React.Fragment>
-        <footer className={this.props.isLight ? "footer bg-light" : "footer"}>
+        <footer className={this.props.isLight ? "footer bg-light" : "footer "}>
             <Container>
                 <Row>
                     <Col lg="4" xs="12" className="mb-0 mb-md-4 pb-0 pb-md-2" name="footercolumn">

@@ -30,6 +30,7 @@
     "react-scroll-to": "^3.0.0-beta.2",
     "react-scroll-up-button": "^1.6.4",
     "react-scrollspy-nav": "^1.2.3",
+    "react-select": "^3.1.0",
     "react-slick": "^0.25.2",
     "react-star-ratings": "^2.3.0",
     "react-typist": "^2.0.5",
