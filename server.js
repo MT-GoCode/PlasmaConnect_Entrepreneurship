@@ -55,7 +55,7 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 
-app.get("/getcenters", (req, res) => {
+app.post("/getcenters", (req, res) => {
   res.status(420).send('Hello world!');
   // axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
   //     .then(data => {

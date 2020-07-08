@@ -38,7 +38,7 @@ class CenterSignUp extends Component {
     }
     
     componentWillMount = () => {
-        axios.get('/getcenters')
+        axios.post('/getcenters')
         .then(res => {
             console.log(res.data)
             console.log(res)
