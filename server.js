@@ -44,10 +44,10 @@ const path = require('path');
 /*Adds the react production build to serve react requests*/
 app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
-// app.get("*", (req, res) => {
-//   const index = path.join(__dirname, "./client/build/index.html");
-//   res.sendFile(index);
-// });
+app.get("*", (req, res) => {
+  const index = path.join(__dirname, "./client/build/index.html");
+  res.sendFile(index);
+});
 
 // PORT
 const port = process.env.PORT || 4000;
