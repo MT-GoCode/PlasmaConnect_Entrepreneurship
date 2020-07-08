@@ -40,7 +40,7 @@ class CenterSignUp extends Component {
     componentWillMount = () => {
         axios.get('/getcenters')
         .then(res => {
-            console.log(res.data)
+            console.log(res)
             // let centers = res.data.markers.marker
             // // let centers = res.data[0].marker
             // // // console.log(centers)
