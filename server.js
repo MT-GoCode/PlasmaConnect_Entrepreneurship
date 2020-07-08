@@ -56,16 +56,17 @@ const server = app.listen(port, () => {
 })
 
 app.get("/getcenters", (req, res) => {
-  axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
-      .then(data => {
-        parseString(data.data, function (err, result) {
-          let json = JSON.stringify(result)
+  res.json('testestestsets')
+  // axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
+  //     .then(data => {
+  //       parseString(data.data, function (err, result) {
+  //         let json = JSON.stringify(result)
           
-          res.send(json);
-        });
-        // res.send(data.data)
-            // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
-    });
+  //         res.send(json);
+  //       });
+  //       // res.send(data.data)
+  //           // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+  //   });
   
   // const client = new MongoClient('mongodb://localhost:27017');
 
