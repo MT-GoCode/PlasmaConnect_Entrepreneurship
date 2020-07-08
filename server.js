@@ -56,7 +56,7 @@ const server = app.listen(port, () => {
 })
 
 app.post("/getcenters", (req, res) => {
-  res.status(418).send('Hello world!');
+  res.status(200).send('Hello world!');
   // axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
   //     .then(data => {
   //       parseString(data.data, function (err, result) {
