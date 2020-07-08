@@ -1,8 +1,10 @@
+let axios = require('axios')
 let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
 let dbConfig = require('./database/db');
+var parseString = require('xml2js').parseString; 
 
 
 // Mongo Client //////////////
@@ -53,23 +55,34 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 
-app.post("/getcenters", (req, res) => {
-  const client = new MongoClient('mongodb://localhost:27017');
+app.get("/getcenters", (req, res) => {
+  axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
+      .then(data => {
+        parseString(data.data, function (err, result) {
+          let json = JSON.stringify(result)
+          
+          res.send(json);
+        });
+        // res.send(data.data)
+            // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+    });
+  
+  // const client = new MongoClient('mongodb://localhost:27017');
 
-  client.connect(function(err) {
-    // assert.equal(null, err);
-    console.log("Connected successfully to MongoClient server");
+  // client.connect(function(err) {
+  //   // assert.equal(null, err);
+  //   console.log("Connected successfully to MongoClient server");
 
-    const db = client.db('PlasmaDonations');
-    var collection = db.collection('PlasmaDonationCenters');
+  //   const db = client.db('PlasmaDonations');
+  //   var collection = db.collection('PlasmaDonationCenters');
 
-    collection.find().toArray(function(err, data) {
-      res.json(data)
-    })
+  //   collection.find().toArray(function(err, data) {
+  //     res.json(data)
+  //   })
 
-    client.close();
+  //   client.close();
 
-  });
+  // });
 
 
   // var collection = db.collection('PlasmaDonationCenters');
