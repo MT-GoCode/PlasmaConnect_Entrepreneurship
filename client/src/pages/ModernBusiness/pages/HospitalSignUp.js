@@ -38,6 +38,7 @@ class HospitalSignUp extends Component {
     }
     
     componentWillMount = () => {
+        // API is public, cross domain isn't an issue
         axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
       .then(res => {
             let hospitals = res.data.features
