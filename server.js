@@ -4,8 +4,16 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 let dbConfig = require('./database/db');
 
+
+// Mongo Client //////////////
+const MongoClient = require('mongodb').MongoClient;
+
+
+/////////////////////
+
 // Express Route
 const donorQueueRoute = require('./routes/donorQueue.route')
+// const H = require('./routes/donorQueue.route')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
@@ -28,6 +36,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
 
+
 /*express index.js*/
 const path = require('path');
 /*Adds the react production build to serve react requests*/
@@ -44,24 +53,37 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 
+app.post("/getcenters", (req, res) => {
+  const client = new MongoClient('mongodb://localhost:27017');
+
+  client.connect(function(err) {
+    // assert.equal(null, err);
+    console.log("Connected successfully to MongoClient server");
+
+    const db = client.db('PlasmaDonations');
+    var collection = db.collection('PlasmaDonationCenters');
+
+    collection.find().toArray(function(err, data) {
+      res.json(data)
+    })
+
+    client.close();
+
+  });
+
+
+  // var collection = db.collection('PlasmaDonationCenters');
+  //   res.json(collection)
+  //   // collection.find().toArray(function(err, kittens) {
+  //   //     // here ...
+  //   // });    
+  // });
+})
+
 // 404 Error
 // app.use((req, res, next) => {
 //   next(createError(404));
 // });
-// Hospital. Will move to separate file later
-app.route('/create-hospital').post((req, res, next) => {
-  console.log(req.body)
-
-  // donorQueueSchema.create(req.body, (error, data) => {
-  //   if (error) {
-  //     return next(error)
-  //   } else {
-  //     console.log(data)
-  //     res.json(data)
-  //   }
-  // })
-});
-
 
 app.use(function (err, req, res, next) {
   console.error(err.message);

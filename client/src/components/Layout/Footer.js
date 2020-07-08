@@ -22,21 +22,22 @@ class Footer extends Component {
     super(props);
     this.state = {
         grid1 : [
-            { title : "About us", link : "/page-aboutus" },
-            { title : "Services", link : "/page-services" },
-            { title : "Team", link : "/page-team" },
-            { title : "Pricing", link : "/page-pricing" },
-            { title : "Project", link : "/page-work" },
-            { title : "Careers", link : "/page-jobs" },
-            { title : "Blog", link : "/page-blog" },
-            { title : "Login", link : "/page-cover-login" },
+            { title : "About us", link : "/" },
+            { title : "Contact", link : "/" },
+            // { title : "Services", link : "/page-services" },
+            // { title : "Team", link : "/page-team" },
+            // { title : "Pricing", link : "/page-pricing" },
+            // { title : "Project", link : "/page-work" },
+            // { title : "Careers", link : "/page-jobs" },
+            // { title : "Blog", link : "/page-blog" },
+            // { title : "Login", link : "/page-cover-login" },
         ],
         grid2 : [
             { title : "Terms of Services", link : "/page-terms" },
             { title : "Privacy Policy", link : "/page-privacy" },
-            { title : "Documentation", link : "/documentation" },
-            { title : "Changelog", link : "/changelog" },
-            { title : "Components", link : "/components" },
+            // { title : "Documentation", link : "/documentation" },
+            // { title : "Changelog", link : "/changelog" },
+            // { title : "Components", link : "/components" },
         ]
     };
   }

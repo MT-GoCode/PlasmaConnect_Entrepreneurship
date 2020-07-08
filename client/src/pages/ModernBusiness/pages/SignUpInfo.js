@@ -8,7 +8,7 @@ import FeatherIcon from 'feather-icons-react';
 //Import components
 import PageBreadcrumb from "../../../components/Shared/PageBreadcrumb";
 
-class HelpCenterSupportRequest extends Component {
+class SignUpInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -111,14 +111,14 @@ class HelpCenterSupportRequest extends Component {
                                 <Row className="align-items-end">
                                     <Col md="8">
                                         <div className="section-title text-md-left text-center">
-                                            <h4 className="title mb-3 text-white title-dark">Plasma Collection Center</h4>
-                                            <p style = {{color: 'white'}}>As a Plasma Collection Center...</p>
+                                            <h4 className="title mb-3 text-white title-dark">Plasma Donation Center</h4>
+                                            <p style = {{color: 'white'}}>As a Plasma Donation Center...</p>
                                         </div>
                                     </Col>
                                     
                                     <Col md="4" className="mt-4 mt-sm-0">
                                         <div className="text-md-right text-center">
-                                            <Link to="#" className="btn btn-light">Coming Soon!</Link>
+                                            <Link to="/centersignup" className="btn btn-light">Sign Up</Link>
                                         </div>
                                     </Col>
                                 </Row>
@@ -156,4 +156,4 @@ class HelpCenterSupportRequest extends Component {
     }
 }
 
-export default HelpCenterSupportRequest;
+export default SignUpInfo;
