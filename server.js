@@ -45,9 +45,14 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
 app.get("*", (req, res) => {
-  const index = path.join(__dirname, "./client/build/index.html");
-  res.sendFile(index);
+  console.dir()
+  
+  res.send('req.get(host) and hostname: ' + req.get('host') + ',' + req.hostname)
+  // const index = path.join(__dirname, "./client/build/index.html");
+  // res.sendFile(index);
 });
+
+
 
 // PORT
 const port = process.env.PORT || 4000;

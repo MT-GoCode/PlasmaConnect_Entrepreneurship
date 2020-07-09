@@ -41,36 +41,27 @@ class CenterSignUp extends Component {
         axios.post('/getcenters')
         .then(res => {
             let centers = res.data.markers.marker
-            // let centers = res.data[0].marker
-            // // console.log(centers)
             let toState = centers.map((center) => {
                 return {
                     value: center.name + ' - '+ center.address,
                     label: center.name + ' - '+ center.address}
             })
-            // console.log(toState);
             this.setState({options: toState})
         });
-        // axios.post('http://localhost:4000/getcenters')
-        // .then(res => {
-        //     console.log(res)
-        //     console.log(res.data)
-        //     // let centers = res.data.markers.marker
-        //     // // let centers = res.data[0].marker
-        //     // // // console.log(centers)
-        //     // let toState = centers.map((center) => {
-        //     //     return {
-        //     //         value: center.name + ' - '+ center.address,
-        //     //         label: center.name + ' - '+ center.address}
-        //     // })
-        //     // // console.log(toState);
-        //     // this.setState({options: toState})
-        // });
-        // axios.post('http://https://plasmaconnect.herokuapp.com:4000/getcenters')
-        // .then(res => {
-        //     console.log(res)
-        //     console.log(res.data)
-        // });
+
+        // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters
+
+        axios.post('https://plasmaconnect.herokuapp.com:4000/getcenters')
+        .then(res => {
+            console.log(res)
+            console.log(res.data)
+        });
+
+        axios.get('/').then(res => {
+            console.log('before was testing domaine:4000. now testing get. ' + res)
+            console.log(res.data)
+        });
+        
         
     }
     handleIDChange = center => {
