@@ -49,17 +49,18 @@ class CenterSignUp extends Component {
             this.setState({options: toState})
         });
 
-        // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters
+        // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters - second one xml needs to be deciphered, rather not
 
-        axios.post('https://plasmaconnect.herokuapp.com:4000/getcenters')
-        .then(res => {
-            console.log(res)
-            console.log(res.data)
-        });
+        // axios.post('https://plasmaconnect.herokuapp.com:4000/getcenters')
+        // .then(res => {
+        //     console.log(res)
+        //     console.log(res.data)
+        // });
 
         axios.get('/').then(res => {
-            console.log('before was testing domaine:4000. now testing get. ' + res)
-            console.log(res.data)
+            console.log('before was testing domaine:4000. now testing get. ')
+            console.dir(res)
+            console.dir(res.data)
         });
         
         
