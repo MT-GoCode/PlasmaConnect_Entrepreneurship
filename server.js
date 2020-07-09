@@ -44,17 +44,20 @@ const path = require('path');
 /*Adds the react production build to serve react requests*/
 app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
-app.get("*", (req, res) => { 
+app.get("*", (req, res) => {
+  // console.log(req.hostname)
+  if (req.hostname == "plasmaconnect.herokuapp.com") {
+    const index = path.join(__dirname, "./client/build/index.html");
+    res.sendFile(index);
+  }
   
-  const index = path.join(__dirname, "./client/build/index.html");
-  
-  res.sendFile(index);
 });
 
-app.get("/", (req, res) => {
-  res.send('req.get(host) and hostname: ' + req.get('host') + ',' + req.hostname)
-});
-
+// app.get("/", (req, res) => {
+//   console.log()
+//   res.send( req.hostname)
+//   // req.get('host') + ',' +
+// });
 
 
 // PORT
