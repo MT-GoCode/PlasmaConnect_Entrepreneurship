@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
 app.get("*", (req, res, next) => {
   // console.log(req.hostname)
-  if (req.hostname == "plasmaconnect.herokuapp.com") {
+  if (req.hostname.includes("plasmaconnect.herokuapp.com")) {
     const index = path.join(__dirname, "./client/build/index.html");
     res.sendFile(index);
   }
