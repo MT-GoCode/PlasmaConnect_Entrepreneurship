@@ -38,16 +38,16 @@ class CenterSignUp extends Component {
     }
     
     componentWillMount = () => {
-        // axios.post('/getcenters')
-        // .then(res => {
-        //     let centers = res.data.markers.marker
-        //     let toState = centers.map((center) => {
-        //         return {
-        //             value: center.name + ' - '+ center.address,
-        //             label: center.name + ' - '+ center.address}
-        //     })
-        //     this.setState({options: toState})
-        // });
+        axios.get('/getcenters')
+        .then(res => {
+            let centers = res.data.markers.marker
+            let toState = centers.map((center) => {
+                return {
+                    value: center.name + ' - '+ center.address,
+                    label: center.name + ' - '+ center.address}
+            })
+            this.setState({options: toState})
+        });
 
         // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters - second one xml needs to be deciphered, rather not
 

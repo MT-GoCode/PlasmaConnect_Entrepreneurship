@@ -44,12 +44,13 @@ const path = require('path');
 /*Adds the react production build to serve react requests*/
 app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
-app.get("*", (req, res) => {
+app.get("*", (req, res, next) => {
   // console.log(req.hostname)
   if (req.hostname == "plasmaconnect.herokuapp.com") {
     const index = path.join(__dirname, "./client/build/index.html");
     res.sendFile(index);
   }
+  next()
   
 });
 
@@ -66,7 +67,8 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 
-app.post("/getcenters", (req, res) => {
+app.get("/getcenters", (req, res) => {
+
   axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
       .then(data => {
         parseString(data.data, function (err, result) {
@@ -102,6 +104,15 @@ app.post("/getcenters", (req, res) => {
   //   //     // here ...
   //   // });    
   // });
+})
+
+app.get("/gethospitals", (req, res) => {
+  
+  axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
+      .then(data => {
+        res.send(data.data)
+    });
+
 })
 
 // 404 Error
