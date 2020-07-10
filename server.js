@@ -55,7 +55,6 @@ app.get("*", (req, res, next) => {
   if (!req.hostname.includes("localhost")) {
     const index = path.join(__dirname, "./client/build/index.html");
     res.sendFile(index);
-    next()
   }
   else {
     next()
@@ -78,7 +77,7 @@ const server = app.listen(port, () => {
 })
 
 app.get("/getcenters", (req, res) => {
-
+  console.log('getting centers right now')
   axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
       .then(data => {
         console.log('successful center fetch', typeof(data.data))
@@ -119,7 +118,7 @@ app.get("/getcenters", (req, res) => {
 })
 
 app.get("/gethospitals", (req, res) => {
-  
+  console.log('getting hospitalss right now')
   axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
       .then(data => {
         console.log('successful hospital fetch', typeof(data.data))
