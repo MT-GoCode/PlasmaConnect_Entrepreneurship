@@ -108,7 +108,7 @@ app.get("/getcenters", (req, res) => {
   // });
 })
 app.get("/gethospitals", (req, res) => {
-  console.log('getting hospitalss right now')
+  console.log('getting hospitals right now')
   axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
       .then(data => {
         console.log('successful hospital fetch', typeof(data.data))
@@ -122,17 +122,17 @@ app.get("/gethospitals", (req, res) => {
 //   next(createError(404));
 // });
 
-const fs = require('fs');
-const fileName = "./client/package.json"
-const file = require(fileName);
+// const fs = require('fs');
+// const fileName = "./client/package.json"
+// const file = require(fileName);
 
-file.proxy = process.env.PORT || 4000;
+// file.proxy = process.env.PORT || 4000;
 
-fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
-  if (err) return console.log(err);
-  console.log(JSON.stringify(file));
-  console.log('writing to ' + fileName);
-});
+// fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
+//   if (err) return console.log(err);
+//   console.log(JSON.stringify(file));
+//   console.log('writing to ' + fileName);
+// });
 
 
 app.use(function (err, req, res, next) {
@@ -143,7 +143,7 @@ app.use(function (err, req, res, next) {
 
 
 // PORT
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
