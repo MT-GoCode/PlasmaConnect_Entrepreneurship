@@ -47,23 +47,32 @@ app.use('/donorQueue', donorQueueRoute)
 /*express index.js*/
 const path = require('path');
 /*Adds the react production build to serve react requests*/
-app.use(express.static(path.join(__dirname, "./client/build")));
 
-/*React root*/
-app.get("*", (req, res, next) => {
-  console.log('request from: ', req.protocol + '://' + req.get('host') + req.originalUrl)
-  // console.log('hostname: ' + req.hostname)
-  // console.log('hostname check: ' + (req.hostname.includes("localhost")))
-  if (!req.hostname.includes("localhost")) {
-    const index = path.join(__dirname, "./client/build/index.html");
-    res.sendFile(index);
-  }
-  else {
-    next()
-  }
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+// app.use(express.static(path.join(__dirname, "./client/build")));
+
+// /*React root*/
+// app.get("*", (req, res, next) => {
+//   console.log('request from: ', req.protocol + '://' + req.get('host') + req.originalUrl)
+//   // console.log('hostname: ' + req.hostname)
+//   // console.log('hostname check: ' + (req.hostname.includes("localhost")))
+//   if (!req.hostname.includes("localhost")) {
+//     const index = path.join(__dirname, "./client/build/index.html");
+//     res.sendFile(index);
+//   }
+//   else {
+//     next()
+//   }
   
 
-});
+// });
 
 
 
@@ -79,7 +88,7 @@ app.get("/getcenters", (req, res) => {
           res.send(json);
         });
         // res.send(data.data)
-            // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+        // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
     });
   
   // const client = new MongoClient('mongodb://localhost:27017');
@@ -143,7 +152,7 @@ app.use(function (err, req, res, next) {
 
 
 // PORT
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
