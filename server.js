@@ -35,8 +35,6 @@ const MongoClient = require('mongodb').MongoClient;
 // Express Route
 const donorQueueRoute = require('./routes/donorQueue.route')
 
-
-
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
 app.use(bodyParser.json());
@@ -45,13 +43,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
-
-
-
-
-
-
-
 
 /*express index.js*/
 const path = require('path');
@@ -87,6 +78,8 @@ app.get("/getcenters", (req, res) => {
 
   axios.get('https://www.donatingplasma.org/index.php?option=com_storelocator&view=map&format=raw&searchall=1')
       .then(data => {
+        console.log('successful center fetch', typeof(data.data))
+        // console.dir(data.data)
         parseString(data.data, function (err, result) {
           let json = JSON.stringify(result)
           
@@ -126,6 +119,8 @@ app.get("/gethospitals", (req, res) => {
   
   axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
       .then(data => {
+        console.log('successful hospital fetch', typeof(data.data))
+        // console.log(data.data)
         res.send(data.data)
     });
 })
