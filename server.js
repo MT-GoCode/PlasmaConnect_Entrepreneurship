@@ -55,8 +55,12 @@ app.get("*", (req, res, next) => {
   if (!req.hostname.includes("localhost")) {
     const index = path.join(__dirname, "./client/build/index.html");
     res.sendFile(index);
+    next()
   }
-  next()
+  else {
+    next()
+  }
+  
 
 });
 
