@@ -38,7 +38,7 @@ class CenterSignUp extends Component {
     }
     
     componentWillMount = () => {
-        axios.get('/getcenters')
+        axios.get(process.env.REACT_APP_BASE_URL + '/getcenters')
         .then(res => {
             let centers = res.data.markers.marker
             let toState = centers.map((center) => {

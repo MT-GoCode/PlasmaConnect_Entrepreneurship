@@ -50,6 +50,7 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
 app.get("*", (req, res, next) => {
+  console.log('request received')
   // console.log('hostname: ' + req.hostname)
   // console.log('hostname check: ' + (req.hostname.includes("localhost")))
   if (!req.hostname.includes("localhost")) {
