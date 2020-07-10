@@ -48,9 +48,10 @@ app.use('/donorQueue', donorQueueRoute)
 const path = require('path');
 /*Adds the react production build to serve react requests*/
 app.use(express.static(path.join(__dirname, "./client/build")));
+
 /*React root*/
 app.get("*", (req, res, next) => {
-  console.log('request received')
+  console.log('request from: ', req.protocol + '://' + req.get('host') + req.originalUrl)
   // console.log('hostname: ' + req.hostname)
   // console.log('hostname check: ' + (req.hostname.includes("localhost")))
   if (!req.hostname.includes("localhost")) {
@@ -64,18 +65,7 @@ app.get("*", (req, res, next) => {
 
 });
 
-// app.get("/", (req, res) => {
-//   console.log()
-//   res.send( req.hostname)
-//   // req.get('host') + ',' +
-// });
 
-
-// PORT
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  console.log('Connected to port ' + port)
-})
 
 app.get("/getcenters", (req, res) => {
   console.log('getting centers right now')
@@ -117,7 +107,6 @@ app.get("/getcenters", (req, res) => {
   //   // });    
   // });
 })
-
 app.get("/gethospitals", (req, res) => {
   console.log('getting hospitalss right now')
   axios.get('https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Hospitals_1/FeatureServer/0/query?where=1%3D1&outFields=ID,NAME,ADDRESS,CITY,STATE,ZIP&outSR=4326&f=json')
@@ -133,8 +122,28 @@ app.get("/gethospitals", (req, res) => {
 //   next(createError(404));
 // });
 
+const fs = require('fs');
+const fileName = "./client/package.json"
+const file = require(fileName);
+
+file.proxy = process.env.PORT || 4000;
+
+fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
+  if (err) return console.log(err);
+  console.log(JSON.stringify(file));
+  console.log('writing to ' + fileName);
+});
+
+
 app.use(function (err, req, res, next) {
   console.error(err.message);
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
 });
+
+
+// PORT
+const port = process.env.PORT || 4000;
+const server = app.listen(port, () => {
+  console.log('Connected to port ' + port)
+})
