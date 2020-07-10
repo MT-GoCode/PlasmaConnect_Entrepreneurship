@@ -71,7 +71,8 @@ class HospitalSignUp extends Component {
     //             donors: res.data
     //         })
     //     });
-        this.setState({submitMessage: true})
+        this.setState({submitMessage: true, HospitalID: null})
+        this.form.reset();
     }
 
     handleSubmit = (event) =>{
@@ -123,7 +124,7 @@ class HospitalSignUp extends Component {
                                     <Card className="login_page border-0" style={{zIndex:1}}>
                                         <CardBody className="p-0">
                                             {/* <h4 className="card-title text-center">Sign up as a donor</h4> */}
-                                        <AvForm onValidSubmit = {this.handleValidSubmit} className="login-form mt-4">
+                                        <AvForm onValidSubmit = {this.handleValidSubmit} className="login-form mt-4" ref={c => (this.form = c)}>
                                             <Row>
                                             <Col md="12" className="mb-0">
                                                 <Alert isOpen={this.state.submitMessage} toggle={() => this.setState({submitMessage : false})} color="primary" >

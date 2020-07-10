@@ -3,8 +3,14 @@ let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
-let dbConfig = require('./database/db');
+// let dbConfig = require('./database/db');
 var parseString = require('xml2js').parseString; 
+
+// Mongoose Atlas connection
+mongoose.connect("mongodb+srv://MinhTrinh:Minhkien@cluster0-zwleo.mongodb.net/PlasmaConnect?retryWrites=true&w=majority", {
+  useNewUrlParser: true
+}).then(() => console.log("Atlas Database Connected Successfully"))
+  .catch(err => console.log(err));
 
 
 // Mongo Client //////////////
@@ -13,30 +19,38 @@ const MongoClient = require('mongodb').MongoClient;
 
 /////////////////////
 
+// Connecting mongoDB Database local
+// mongoose.Promise = global.Promise;
+// mongoose.connect(dbConfig.db, {
+//   useNewUrlParser: true
+// }).then(() => {
+//   console.log('Database sucessfully connected!')
+// },
+//   error => {
+//     console.log('Could not connect to database : ' + error)
+//   }
+// )
+// 
+
 // Express Route
 const donorQueueRoute = require('./routes/donorQueue.route')
-// const H = require('./routes/donorQueue.route')
 
-// Connecting mongoDB Database
-mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.db, {
-  useNewUrlParser: true
-}).then(() => {
-  console.log('Database sucessfully connected!')
-},
-  error => {
-    console.log('Could not connect to database : ' + error)
-  }
-)
 
 
 const app = express();
+app.use(express.json()); // Make sure it comes back as json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
+
+
+
+
+
+
 
 
 /*express index.js*/
@@ -46,8 +60,8 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 /*React root*/
 app.get("*", (req, res, next) => {
   console.log('hostname: ' + req.hostname)
-  console.log('hostname check: ' + (req.hostname.includes("herokuapp")))
-  if (req.hostname.includes("herokuapp")) {
+  console.log('hostname check: ' + (req.hostname.includes("localhost")))
+  if (!req.hostname.includes("localhost")) {
     const index = path.join(__dirname, "./client/build/index.html");
     res.sendFile(index);
   }
@@ -114,7 +128,6 @@ app.get("/gethospitals", (req, res) => {
       .then(data => {
         res.send(data.data)
     });
-
 })
 
 // 404 Error

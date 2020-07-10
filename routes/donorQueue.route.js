@@ -5,18 +5,45 @@ let mongoose = require('mongoose'),
 // donorQueue Model
 let donorQueueSchema = require('../models/DonorQueue');
 
+// Test Atlas
+// use https://www.digitalocean.com/community/tutorials/nodejs-crud-operations-mongoose-mongodb-atlas for all crud operations with atlas and mongoose
+// router.get('/foods', async (req, res) => {
+//   const foods = await donorQueueSchema.find({});
+
+//   try {
+//     res.send(foods);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+// router.post('/food', async (req, res) => {
+//   const food = new donorQueueSchema(req.body);
+//   // console.log()
+//   try {
+//     await food.save();
+//     res.send(food);
+//   } catch (err) {
+//     console.log('err')
+//     res.status(500).send(err);
+//   }
+// });
+
 // CREATE donorQueue
-router.route('/create-donor-queue').post((req, res, next) => {
-  console.log(req.body)
-  donorQueueSchema.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      console.log(data)
-      res.json(data)
-    }
-  })
+router.post('/create-donor-queue', async (req, res, next) => {
+  // Adds to Atlas
+  const donor = new donorQueueSchema(req.body);
+
+  try {
+    await donor.save();
+    res.send(donor);
+  } catch (err) {
+    console.log('Error when creating new DonorQueue')
+    console.log(err)
+    res.status(500).send(err);
+  }
 });
+
 router.route('/researchSearch').get((req, res) => {
   console.log(req.body);
   donorQueueSchema.find({}, 'FirstName LastName Email PhoneNumber State ZipCode', function(error, data) {

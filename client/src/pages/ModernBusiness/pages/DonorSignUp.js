@@ -27,15 +27,17 @@ class HelpCenterSupportRequest extends Component {
 
     handleValidSubmit = (e,values) => {
         console.log(values)
-        axios.post('http://localhost:4000/donorQueue/create-donor-queue', values)
+        axios.post('/donorQueue/create-donor-queue', values)
       .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
 
             this.setState({
                 donors: res.data
             })
         });
+        this.form.reset();
+        
     }
 
     handleSubmit = (event) =>{
@@ -87,7 +89,7 @@ class HelpCenterSupportRequest extends Component {
                                     <Card className="login_page border-0" style={{zIndex:1}}>
                                         <CardBody className="p-0">
                                             {/* <h4 className="card-title text-center">Sign up as a donor</h4> */}
-                                        <AvForm onValidSubmit = {this.handleValidSubmit} className="login-form mt-4">
+                                        <AvForm onValidSubmit = {this.handleValidSubmit} className="login-form mt-4" ref={c => (this.form = c)}>
                                             <Row>
                                             <Col md="6">
                                                     <FormGroup className="position-relative">

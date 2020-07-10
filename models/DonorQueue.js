@@ -62,3 +62,4 @@ let donorQueueSchema = new Schema({
   })
 
 module.exports = mongoose.model('DonorQueue', donorQueueSchema)
+
