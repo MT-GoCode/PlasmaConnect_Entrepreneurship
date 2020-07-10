@@ -48,15 +48,7 @@ app.use('/donorQueue', donorQueueRoute)
 const path = require('path');
 /*Adds the react production build to serve react requests*/
 
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res, next) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    next()
-  });
-}
+
 // app.use(express.static(path.join(__dirname, "./client/build")));
 
 // /*React root*/
@@ -145,11 +137,23 @@ app.get("/gethospitals", (req, res) => {
 // });
 
 
+
+
 app.use(function (err, req, res, next) {
   console.error(err.message);
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 
 // PORT
