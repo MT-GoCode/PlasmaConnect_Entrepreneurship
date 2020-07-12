@@ -4,6 +4,7 @@ import { AvForm, AvField, AvRadio, AvRadioGroup } from 'availity-reactstrap-vali
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Select from 'react-select'
+import AsyncSelect from 'react-select/async';
 
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
@@ -16,7 +17,24 @@ const options = [ // definintely implement live search for hospitals later with 
     { value: '53391362', label: 'LOS ROBLES HOSPITAL & MEDICAL CENTER - EAST CAMPUS 150 VIA MERIDA' },
     { value: '11190023', label: 'EAST LOS ANGELES DOCTORS HOSPITAL' }
   ]
-
+  const promiseOptions = inputValue =>
+  new Promise(resolve => {
+      resolve(
+          // API is public, cross domain isn't an issue. moved to backend to centralize all requests to external servers
+  axios.get('/gethospitals')
+  .then(res => {
+        // console.log(res.data)
+        let hospitals = res.data.features
+        let toState = hospitals.map((hospital) => {
+            return {
+                value: hospital.attributes.ID,
+                label: hospital.attributes.NAME + ' '+ hospital.attributes.ADDRESS}
+        })
+        return toState
+    })
+      );
+  });
+  
 
 class HospitalSignUp extends Component {
     constructor(props) {
@@ -36,22 +54,6 @@ class HospitalSignUp extends Component {
         this.handleSubmit.bind(this);
         this.handleIDChange.bind(this);
     }
-    
-    componentWillMount = () => {
-        // API is public, cross domain isn't an issue. moved to backend to centralize all requests to external servers
-        axios.get('/gethospitals')
-      .then(res => {
-            console.log(res.data)
-            let hospitals = res.data.features
-            let toState = hospitals.map((hospital) => {
-                return {
-                    value: hospital.attributes.ID,
-                    label: hospital.attributes.NAME + ' '+ hospital.attributes.ADDRESS}
-            })
-            this.setState({options: toState})
-        });
-        
-    }
     handleIDChange = hospital => {
         // console.log()
         this.setState(
@@ -62,15 +64,6 @@ class HospitalSignUp extends Component {
     handleValidSubmit = (e,values) => {
         values.HospitalID = this.state.HospitalID.value
         console.log(values)
-    //     axios.post('http://localhost:4000/donorQueue/create-donor-queue', values)
-    //   .then(res => {
-    //         console.log(res.data);
-    //         // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
-
-    //         this.setState({
-    //             donors: res.data
-    //         })
-    //     });
         this.setState({submitMessage: true, HospitalID: null})
         this.form.reset();
     }
@@ -135,7 +128,13 @@ class HospitalSignUp extends Component {
                                                 <FormGroup className="position-relative">
                                                         <Label for="HospitalID">Hospital Name and Address <span className="text-danger">*</span></Label>
                                                         {/* <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i> */}
-                                                        <Select options={this.state.options} value={this.state.HospitalID} onChange = {this.handleIDChange} />
+                                                        {/* <Select options={this.state.options} value={this.state.HospitalID} onChange = {this.handleIDChange} /> */}
+                                                        <AsyncSelect
+                                                            cacheOptions
+                                                            loadOptions={promiseOptions}
+                                                            defaultOptions
+                                                            onChange = {this.handleIDChange}
+                                                        />
                                                 </FormGroup>
                                                 </Col>
                                             {/* <Col md="12">

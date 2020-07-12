@@ -4,6 +4,8 @@ import { AvForm, AvField, AvRadio, AvRadioGroup } from 'availity-reactstrap-vali
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Select from 'react-select'
+// import WithCallbacks from '../test'
+import AsyncSelect from 'react-select/async';
 
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
@@ -11,12 +13,28 @@ import FeatherIcon from 'feather-icons-react';
 //Import components
 import PageBreadcrumb from "../../../components/Shared/PageBreadcrumb";
 
-const options = [ // definintely implement live search for hospitals later with the api - react-select provides async search
-    { value: '5793230', label: 'CENTRAL VALLEY GENERAL HOSPITAL 1025 NORTH DOUTY STREET' },
-    { value: '53391362', label: 'LOS ROBLES HOSPITAL & MEDICAL CENTER - EAST CAMPUS 150 VIA MERIDA' },
-    { value: '11190023', label: 'EAST LOS ANGELES DOCTORS HOSPITAL' }
-  ]
-
+// const options = [ // definintely implement live search for hospitals later with the api - react-select provides async search
+//     { value: '5793230', label: 'CENTRAL VALLEY GENERAL HOSPITAL 1025 NORTH DOUTY STREET' },
+//     { value: '53391362', label: 'LOS ROBLES HOSPITAL & MEDICAL CENTER - EAST CAMPUS 150 VIA MERIDA' },
+//     { value: '11190023', label: 'EAST LOS ANGELES DOCTORS HOSPITAL' }
+//   ]
+const promiseOptions = inputValue =>
+  new Promise(resolve => {
+      resolve(
+          // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters - second one xml needs to be deciphered, rather not
+        axios.get('/getcenters')
+        .then(res => { 
+            let centers = res.data.markers.marker
+            let toState = centers.map((center) => {
+                return {
+                    value: center.name + ' - '+ center.address,
+                    label: center.name + ' - '+ center.address}
+            })
+            return toState
+            // this.setState({options: toState})
+        })        
+      );
+  });
 
 class CenterSignUp extends Component {
     constructor(props) {
@@ -36,36 +54,8 @@ class CenterSignUp extends Component {
         this.handleSubmit.bind(this);
         this.handleIDChange.bind(this);
     }
-    
-    componentWillMount = () => {
-        axios.get('/getcenters')
-        .then(res => {
-            let centers = res.data.markers.marker
-            let toState = centers.map((center) => {
-                return {
-                    value: center.name + ' - '+ center.address,
-                    label: center.name + ' - '+ center.address}
-            })
-            this.setState({options: toState})
-        });
 
-        // not using http://localhost:4000/getcenters nor https://plasmaconnect.herokuapp.com:4000/getcenters - second one xml needs to be deciphered, rather not
-
-        // axios.post('https://plasmaconnect.herokuapp.com:4000/getcenters')
-        // .then(res => {
-        //     console.log(res)
-        //     console.log(res.data)
-        // });
-
-        // axios.get('/').then(res => {
-        //     console.dir(res)
-        //     console.dir(res.data)
-        // });
-        
-        
-    }
     handleIDChange = center => {
-        // console.log()
         this.setState(
           {CenterID: center}
         );
@@ -74,15 +64,6 @@ class CenterSignUp extends Component {
     handleValidSubmit = (e,values) => {
         values.CenterID = this.state.CenterID.value
         console.log(values)
-    //     axios.post('http://localhost:4000/donorQueue/create-donor-queue', values)
-    //   .then(res => {
-    //         console.log(res.data);
-    //         // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
-
-    //         this.setState({
-    //             donors: res.data
-    //         })
-    //     });
         this.setState({submitMessage: true, CenterID: null})
         this.form.reset();
     }
@@ -147,8 +128,15 @@ class CenterSignUp extends Component {
                                                 <FormGroup className="position-relative">
                                                         <Label for="CenterID">Plasma Donation Name and Address <span className="text-danger">*</span></Label>
                                                         {/* <i><FeatherIcon icon="user" className="fea icon-sm icons" /></i> */}
-                                                        <Select options={this.state.options} value={this.state.CenterID} onChange = {this.handleIDChange} />
+                                                        {/* <Select options={this.state.options} value={this.state.CenterID} onChange = {this.handleIDChange} /> */}
+                                                        <AsyncSelect
+                                                            cacheOptions
+                                                            loadOptions={promiseOptions}
+                                                            defaultOptions
+                                                            onChange={this.handleIDChange}
+                                                        />
                                                 </FormGroup>
+                                                {/* <WithCallbacks/> */}
                                                 </Col>
                                             {/* <Col md="12">
                                                     <FormGroup className="position-relative">
