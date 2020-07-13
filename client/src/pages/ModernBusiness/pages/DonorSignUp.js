@@ -3,13 +3,16 @@ import { Container, Row, Col, Media, Form, FormGroup, Input, Label, Alert, Butto
 import { AvForm, AvField, AvRadio, AvRadioGroup } from 'availity-reactstrap-validation';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+// import InputForm from "../tests/testUpload"
+import handleUpload from "../uploadFuncsClient"
 
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
 
 //Import components
 import PageBreadcrumb from "../../../components/Shared/PageBreadcrumb";
-
+// let urls = []
+// window.urls = []
 class HelpCenterSupportRequest extends Component {
     constructor(props) {
         super(props);
@@ -20,29 +23,43 @@ class HelpCenterSupportRequest extends Component {
                 { id : 2, name : "Help Center", link : "#" },
                 { id : 3, name : "Support" },
             ],
-            isOpen : false
         }
-        this.handleSubmit.bind(this);
+    }
+    uploadHandler = async (e, values) => {
+        let promise = new Promise((resolve, reject) => {
+            resolve(handleUpload(e, [this.uploadInputDF, this.uploadInputTR], values))
+        }).then(data => data    
+        )
+        let res = await promise
+        return res
+        // handleUpload(e, [this.uploadInputDF, this.uploadInputTR], values).then(data => {console.log(data)})
     }
 
     handleValidSubmit = (e,values) => {
+        this.uploadHandler(e,values).then(res => {
+            console.log(res)
+            let DFLink = res[0]
+            let TRLink = res[1]
+            
+            values.DischargeForm = DFLink
+            values.COVID19TestResults=TRLink
+            console.log(values)
+            axios.post('/donorQueue/create-donor-queue', values)
+            .then(res => {
+                console.log('data uploaded')
+                // console.log(res.data);
+                // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+
+                // this.setState({
+                //     donors: res.data
+                // })
+            });
+            this.form.reset();
+        })
+        // console.log(res)
         console.log(values)
-        axios.post('/donorQueue/create-donor-queue', values)
-      .then(res => {
-            // console.log(res.data);
-            // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
-
-            this.setState({
-                donors: res.data
-            })
-        });
-        this.form.reset();
         
-    }
-
-    handleSubmit = (event) =>{
-        event.preventDefault();
-        this.setState({isOpen : true})
+        
     }
 
     componentDidMount() {
@@ -259,33 +276,40 @@ class HelpCenterSupportRequest extends Component {
                                                 <Col md="12">
                                                     <FormGroup className="position-relative">
                                                         <Label for="DischargeForm"> Discharge Form<span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="file" className="fea icon-sm icons" /></i>
-                                                        <AvField type="file" className="form-control pl-5" name="DischargeForm" id="DischargeForm" placeholder="Please upload your hospital release form" required
+                                                        {/* <i><FeatherIcon icon="file" className="fea icon-sm icons" /></i> */}
+                                                        {/* <AvField type="file" className="form-control pl-5" name="DischargeForm" id="DischargeForm" placeholder="Please upload your hospital release form" required
                                                             errorMessage=""
                                                             validate={{
                                                                 required: {value: true, errorMessage: "Please upload discharge form"},
                                                             }}
-                                                        />
+                                                        /> */}
+                                                        <br/>
+                                                        <input ref={(ref) => { this.uploadInputDF = ref; }} type="file"/>
+                                                        <br/>
                                                     </FormGroup>
                                                 </Col>
 
                                                 <Col md="12">
                                                     <FormGroup className="position-relative">
                                                         <Label for="COVID19TestResults"> COVID-19 Test Results <span className="text-danger">*</span></Label>
-                                                        <i><FeatherIcon icon="file" className="fea icon-sm icons" /></i>
+                                                        {/* <i><FeatherIcon icon="file" className="fea icon-sm icons" /></i>
                                                         <AvField type="file" className="form-control pl-5" name="COVID19TestResults" id="COVID19TestResults" placeholder="Please upload your latest COVID-19 test results." required
                                                             errorMessage=""
                                                             validate={{
                                                                 required: {value: true, errorMessage: "Please upload your form"},
                                                             }}
-                                                        />
+                                                        /> */}
+                                                        <br/>
+                                                        <input ref={(ref) => { this.uploadInputTR = ref; }} type="file"/>
+                                                        <br/>
                                                     </FormGroup>
                                                 </Col>
                                                 
                                                 <Col md="12">
                                                 <FormGroup className="position-relative">
                                                 <Label for="Screening1"> Have you been infected by COVID-19 Y/N? <span className="text-danger">*</span></Label>
-                                                <AvRadioGroup inline name="Screening1" required>
+                                                <AvRadioGroup inline name="Screening1" required
+                                                >
                                                     <AvRadio customInput label="Yes" value="Yes" />
                                                     <AvRadio customInput label="No" value="No" />
                                                     </AvRadioGroup>
@@ -295,7 +319,8 @@ class HelpCenterSupportRequest extends Component {
                                                 <Col md="12">
                                                 <FormGroup className="position-relative">
                                                 <Label for="DonateConsent"> Do you consent to donating plasma? <span className="text-danger">*</span></Label>
-                                                <AvRadioGroup inline name="DonateConsent" required>
+                                                <AvRadioGroup inline name="DonateConsent" required
+                                                >
                                                     <AvRadio customInput label="Yes" value="Yes" />
                                                     <AvRadio customInput label="No" value="No" />
                                                     </AvRadioGroup>
@@ -305,7 +330,8 @@ class HelpCenterSupportRequest extends Component {
                                                 <Col md = "12">
                                                 <FormGroup className="position-relative">
                                                     <Label for="ResearchConsent"> Do you consent to your information being used for research? <span className="text-danger">*</span></Label>
-                                                    <AvRadioGroup inline name="ResearchConsent" required>
+                                                    <AvRadioGroup inline name="ResearchConsent" required
+                                                    >
                                                         <AvRadio customInput label="Yes" value="Yes" />
                                                         <AvRadio customInput label="No" value="No" />
                                                     </AvRadioGroup>

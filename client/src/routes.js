@@ -47,6 +47,7 @@ const SignUpInfo = React.lazy(() => import('./pages/ModernBusiness/pages/SignUpI
 const DonorSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/DonorSignUp'));
 const HospitalSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/HospitalSignUp'));
 const CenterSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/CenterSignUp'));
+const TestUpload = React.lazy(() => import('./pages/ModernBusiness/tests/testUpload'));
 // const Coworking = React.lazy(() => import('./pages/Coworking/index'));
 // const CloudHosting = React.lazy(() => import('./pages/CloudHosting/index'));
 // const Event = React.lazy(() => import('./pages/Event/index'));
@@ -189,6 +190,7 @@ const routes = [
     { path: '/donorsignup', component: DonorSignUp },
     { path: '/hospitalsignup', component: HospitalSignUp },
     { path: '/centersignup', component: CenterSignUp },
+    { path: '/testUpload', component: TestUpload },
 
 
 

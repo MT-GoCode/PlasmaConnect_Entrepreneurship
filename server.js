@@ -5,6 +5,9 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 // let dbConfig = require('./database/db');
 var parseString = require('xml2js').parseString; 
+let sign_s3 = require('./uploadFuncsBackend').sign_s3
+
+
 
 // Mongoose Atlas connection
 mongoose.connect("mongodb+srv://MinhTrinh:Minhkien@cluster0-zwleo.mongodb.net/PlasmaConnect?retryWrites=true&w=majority", {
@@ -43,30 +46,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
+app.post('/sign_s3', sign_s3)
 
 /*express index.js*/
 const path = require('path');
-/*Adds the react production build to serve react requests*/
-
-
-// app.use(express.static(path.join(__dirname, "./client/build")));
-
-// /*React root*/
-// app.get("*", (req, res, next) => {
-//   console.log('request from: ', req.protocol + '://' + req.get('host') + req.originalUrl)
-//   // console.log('hostname: ' + req.hostname)
-//   // console.log('hostname check: ' + (req.hostname.includes("localhost")))
-//   if (!req.hostname.includes("localhost")) {
-//     const index = path.join(__dirname, "./client/build/index.html");
-//     res.sendFile(index);
-//   }
-//   else {
-//     next()
-//   }
-  
-
-// });
-
 
 
 app.get("/getcenters", (req, res) => {

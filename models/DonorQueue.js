@@ -19,7 +19,7 @@ let donorQueueSchema = new Schema({
   COVID19TestResults: {type:String},
   Screening1: {type:String},
   DonateConsent: {type:String},
-  ResearchConsent: {type:String}
+  ResearchConsent: {type:String} 
   // FirstName: {
   //   type: String
   // },

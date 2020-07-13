@@ -55,6 +55,7 @@ class CenterSignUp extends Component {
         this.handleIDChange.bind(this);
     }
 
+
     handleIDChange = center => {
         this.setState(
           {CenterID: center}
