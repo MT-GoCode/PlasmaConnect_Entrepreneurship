@@ -41,13 +41,14 @@ const Main = React.lazy(() => import('./pages/Home/indexMain'));
 // const Studio = React.lazy(() => import('./pages/Studio/index'));
 // const Business = React.lazy(() => import('./pages/Business/index'));
 // const Marketing = React.lazy(() => import('./pages/Marketing/index'));
-// const Hotel = React.lazy(() => import('./pages/Hotel/index'));
+const Hotel = React.lazy(() => import('./pages/Hotel/index'));
 const ModernBusiness = React.lazy(() => import('./pages/ModernBusiness/index'));
 const SignUpInfo = React.lazy(() => import('./pages/ModernBusiness/pages/SignUpInfo'));
 const DonorSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/DonorSignUp'));
 const HospitalSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/HospitalSignUp'));
 const CenterSignUp = React.lazy(() => import('./pages/ModernBusiness/pages/CenterSignUp'));
 const TestUpload = React.lazy(() => import('./pages/ModernBusiness/tests/testUpload'));
+const HospitalSearchDonors = React.lazy(() => import('./pages/ModernBusiness/pages/HospitalSearchDonors/HospitalSearchDonors'));
 // const Coworking = React.lazy(() => import('./pages/Coworking/index'));
 // const CloudHosting = React.lazy(() => import('./pages/CloudHosting/index'));
 // const Event = React.lazy(() => import('./pages/Event/index'));
@@ -122,7 +123,7 @@ const TestUpload = React.lazy(() => import('./pages/ModernBusiness/tests/testUpl
 // const HelpCenterOverview = React.lazy(() => import('./pages/Pages/HelpCenter/HelpCenterOverview'));
 // const HelpCenterFaqs = React.lazy(() => import('./pages/Pages/HelpCenter/HelpCenterFaqs'));
 // const HelpCenterGuides = React.lazy(() => import('./pages/Pages/HelpCenter/HelpCenterGuides'));
-const HelpCenterSupportRequest = React.lazy(() => import('./pages/Pages/HelpCenter/HelpCenterSupportRequest'));
+// const HelpCenterSupportRequest = React.lazy(() => import('./pages/Pages/HelpCenter/HelpCenterSupportRequest'));
 
 // //Shop
 // const ShopProducts = React.lazy(() => import('./pages/Pages/Shop/ShopProducts'));
@@ -179,7 +180,7 @@ const routes = [
     // { path: '/index-studio', component: Studio },
     // { path: '/index-business', component: Business },
     // { path: '/index-marketing', component: Marketing },
-    // { path: '/index-hotel', component: Hotel },
+    { path: '/index-hotel', component: Hotel },
 
 
     // CHANGE
@@ -191,6 +192,7 @@ const routes = [
     { path: '/hospitalsignup', component: HospitalSignUp },
     { path: '/centersignup', component: CenterSignUp },
     { path: '/testUpload', component: TestUpload },
+    { path: '/hospitalsearchdonors', component: HospitalSearchDonors },
 
 
 
@@ -219,7 +221,7 @@ const routes = [
     // { path: '/helpcenter-overview', component: HelpCenterOverview },
     // { path: '/helpcenter-faqs', component: HelpCenterFaqs },
     // { path: '/helpcenter-guides', component: HelpCenterGuides },
-    { path: '/helpcenter-support-request', component: HelpCenterSupportRequest },
+    // { path: '/helpcenter-support-request', component: HelpCenterSupportRequest },
 
     // //Shop
     // { path: '/shop-products', component: ShopProducts },

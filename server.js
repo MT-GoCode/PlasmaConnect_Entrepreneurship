@@ -37,6 +37,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 // Express Route
 const donorQueueRoute = require('./routes/donorQueue.route')
+const queryRoute = require('./routes/query.route')
 
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
@@ -46,6 +47,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
+app.use('/query', queryRoute)
 app.post('/sign_s3', sign_s3)
 
 /*express index.js*/
@@ -106,21 +108,6 @@ app.get("/gethospitals", (req, res) => {
 // app.use((req, res, next) => {
 //   next(createError(404));
 // });
-
-// const fs = require('fs');
-// const fileName = "./client/package.json"
-// const file = require(fileName);
-
-// file.proxy = process.env.PORT || 4000;
-
-// fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
-//   if (err) return console.log(err);
-//   console.log(JSON.stringify(file));
-//   console.log('writing to ' + fileName);
-// });
-
-
-
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
