@@ -1,4 +1,9 @@
 import axios from 'axios'
+
+// const evaulation = require("../../package.json");
+// // console.log(evaulation)
+// const { config } = require("../../package.json");
+
 let handleUpload = async (ev, uploadInput, values) => {
     let urls = []
 
@@ -22,7 +27,7 @@ let handleUpload = async (ev, uploadInput, values) => {
 }
 
 let insertFile = (file, fileName, fileType) => {
-    return axios.post("/sign_s3", {
+    return axios.post("http://localhost:4000/sign_s3", {
             fileName: fileName,
             fileType: fileType
         })
