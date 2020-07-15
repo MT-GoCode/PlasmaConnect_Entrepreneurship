@@ -10,6 +10,7 @@ aws.config.update({
 const S3_BUCKET = process.env.bucket
 // Now lets export this function so we can call it from somewhere else
 exports.sign_s3 = (req,res) => {
+  console.log('signing s3 right now')
   const s3 = new aws.S3();  // Create a new instance of S3
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
@@ -25,6 +26,7 @@ exports.sign_s3 = (req,res) => {
 s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if(err){
       console.log(err);
+      console.log('ERROR GETSIGNEDURL')
       res.json({success: false, error: err})
     }
     // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved. 
