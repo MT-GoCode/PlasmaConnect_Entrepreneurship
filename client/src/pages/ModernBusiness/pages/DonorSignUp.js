@@ -76,7 +76,6 @@ class HelpCenterSupportRequest extends Component {
                         console.log("Response from s3 successful")
     
                         return url
-    
                     })
                     .catch(error => {
                         alert("ERROR " + JSON.stringify(error));
