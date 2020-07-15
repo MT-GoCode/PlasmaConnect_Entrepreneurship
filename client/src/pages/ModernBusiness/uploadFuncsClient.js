@@ -27,7 +27,7 @@ let handleUpload = async (ev, uploadInput, values) => {
 }
 
 let insertFile = (file, fileName, fileType) => {
-    return axios.post("http://localhost:4000/sign_s3", {
+    return axios.post("/sign_s3", {
             fileName: fileName,
             fileType: fileType
         })
