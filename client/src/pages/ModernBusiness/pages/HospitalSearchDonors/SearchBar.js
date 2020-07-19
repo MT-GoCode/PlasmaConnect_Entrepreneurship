@@ -48,13 +48,13 @@ class SearchBar extends Component {
                                     Registration Done Successfully.
                             </Alert> */}
                                 <AvForm onValidSubmit={this.handleValidSubmit} className="login-form mt-4" ref={c => (this.form = c)} className="p-4 shadow bg-white rounded">
-                                    <h4 className="mb-3">Book Now !</h4>
+                                    <h4 className="mb-3">Find donors</h4>
 
                                     <Row className="text-left">
                                         <Col lg="3" md="6">
                                             <FormGroup className="position-relative">
-                                                <Label for="Name">Name </Label>
-                                                <AvField type="text" className="form-control pl-5" name="Name" id="Name" placeholder=""
+                                                <Label for="FirstName">Name </Label>
+                                                <AvField type="text" className="form-control pl-5" name="FirstName" id="FirstName" placeholder=""
                                                 // errorMessage=""
                                                 // validate={{
                                                 //     required: {value: true, errorMessage: "Please enter your email"},

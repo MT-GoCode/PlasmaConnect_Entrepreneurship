@@ -6,32 +6,40 @@ import axios from 'axios'
 import FeatherIcon from 'feather-icons-react';
 import SearchBar from './SearchBar';
 import DonorList from './DonorList'
+import DonorDetails from '../DonorDetails'
 
 
 class SignUpInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pathItems : [
+            pathItems: [
                 //id must required
-                { id : 1, name : "Landrick", link : "/index" },
-                { id : 2, name : "Help Center", link : "#" },
-                { id : 3, name : "Support" },
+                { id: 1, name: "Landrick", link: "/index" },
+                { id: 2, name: "Help Center", link: "#" },
+                { id: 3, name: "Support" },
             ],
-            isOpen : false,
+            isOpen: false,
             query: {},
-            data: []
+            data: [],
+            donorView: [false, {}]
+
         }
         // this.handleSubmit.bind(this);
     }
 
-    onSubmit = (values) =>{
-        this.setState({query: values})
-        axios.post('/query/donateSearch').then(res => {
-          console.log(res.data)
-          this.setState({data: res.data})
+    onSubmit = (values) => {
+        this.setState({ query: values })
+        console.log(values)
+        axios.post('/query/donateSearch', values).then(res => {
+            console.log(res.data)
+            this.setState({ data: res.data })
         })
         // console.log(this.state.query)
+    }
+
+    componentWillMount() {
+        this.setState({donorView: [false, {}]})
     }
 
     componentDidMount() {
@@ -40,7 +48,7 @@ class SignUpInfo extends Component {
 
     // Make sure to remove the DOM listener when the component is unmounted.
     componentWillUnmount() {
-        window.removeEventListener("scroll",this.scrollNavigation, true);
+        window.removeEventListener("scroll", this.scrollNavigation, true);
     }
 
     scrollNavigation = () => {
@@ -54,21 +62,34 @@ class SignUpInfo extends Component {
         }
     }
 
+    selectDonor = (details) => {
+        this.setState({ donorView: [true, details] })
+    }
+
+    returnList = (e) => {
+        this.setState({ donorView: false })
+    }
+
     render() {
         return (
             <React.Fragment>
                 {/* breadcrumb */}
-                <section className="bg-half d-table w-100">
-                        <Row className="justify-content-center">
-                          <SearchBar onSubmit = {this.onSubmit}/>
-                        </Row>
-                  </section>
-                  <DonorList data = {this.state.data} />
-                  <section className="section">
-                  </section>
+                {this.state.donorView[0] ? <DonorDetails details = {this.state.donorView[1]} returnList = {this.returnList}/> :
+                    <>
+                        <section className="bg-half d-table w-100">
+                            <Row className="justify-content-center">
+                                <SearchBar onSubmit={this.onSubmit} />
+                            </Row>
+                        </section>
+                        <DonorList data={this.state.data} onSelect={this.selectDonor} />
+                        <section className="section">
+                        </section>
+                    </>
+                }
+
             </React.Fragment>
 
-           
+
         );
     }
 }

@@ -38,6 +38,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Express Route
 const donorQueueRoute = require('./routes/donorQueue.route')
 const queryRoute = require('./routes/query.route')
+const s3backend = require('./routes/s3backend.route.js')
 
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
@@ -49,7 +50,7 @@ app.use(cors());
 app.use('/donorQueue', donorQueueRoute)
 app.use('/query', queryRoute)
 app.post('/sign_s3', sign_s3)
-
+app.use('/s3/', s3backend)
 /*express index.js*/
 const path = require('path');
 

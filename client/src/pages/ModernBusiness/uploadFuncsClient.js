@@ -1,11 +1,17 @@
 import axios from 'axios'
+var aws = require('aws-sdk');
 
-// const evaulation = require("../../package.json");
-// // console.log(evaulation)
-// const { config } = require("../../package.json");
+// // require('dotenv').config(); // Configure dotenv to load in the .env file
+// // Configure aws with your accessKeyId and your secretAccessKey
+// aws.config.update({
+//   region: 'us-west-1', // Put your aws region here
+//   accessKeyId: "AKIAJCEIL2IUDTO4BGEQ",
+//   secretAccessKey:"YTAl4KZ9T3V9hyv4bKKo2VapzutE9uq9+V9XexAW"
+// })
 
 let handleUpload = async (ev, uploadInput, values) => {
     let urls = []
+    // let fileNames = [this.uploadInputDF.value.replace(/^.*[\\\/]/, ''), this.uploadInputTR.value.replace(/^.*[\\\/]/, '')]
 
     for (let i in uploadInput) {
         let file = uploadInput[i].files[0];
@@ -14,7 +20,11 @@ let handleUpload = async (ev, uploadInput, values) => {
         let fileParts = uploadInput[i].files[0].name.split('.');
         let fileName = fileParts[0];
         let fileType = fileParts[1];
-        console.log("Preparing the upload");
+        // console.log(uploadInput[i].files[0].name, fileParts[1])
+        // uploadInput[i].files[0].name is the full name.
+        // fileParts[1] is the file extension
+
+        // console.log("Preparing the upload");
         let url = await insertFile(file, fileName, fileType)
         console.log(url)
         urls.push(url)
@@ -27,7 +37,26 @@ let handleUpload = async (ev, uploadInput, values) => {
 }
 
 let insertFile = (file, fileName, fileType) => {
+    // const s3 = new aws.S3();
+    // var params = {
+    //     Body: file,
+    //     Bucket: "plasma-donations", 
+    //     Key: fileName, 
+    //     ContentDisposition: `attachment; filename="${fileName + '.' + fileType}";`, // from `originalname`
+    //     ContentType: 'application/'+fileType, // from `mimetype`
+    //    };
+
+      
+    //    s3.putObject(params, function(err, data) {
+    //     if (err) console.log(err, err.stack); // an error occurred
+    //     else{
+    //       console.log(data);           // successful response
+    //       return ('yaw')
+    //     }
+    //   });
+    
     return axios.post("/sign_s3", {
+            file: file,
             fileName: fileName,
             fileType: fileType
         })
@@ -39,7 +68,8 @@ let insertFile = (file, fileName, fileType) => {
 
                 var options = {
                     headers: {
-                        'Content-Type': fileType
+                        'Content-Type': fileType,
+                        'Content-Disposition': `attachment; filename="${fileName + '.' + fileType}";`,
                     }
                 };
                 return [signedRequest, file, options, url]

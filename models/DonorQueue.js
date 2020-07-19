@@ -15,8 +15,8 @@ let donorQueueSchema = new Schema({
   ZipCode: {type:String},
   Username: {type:String},
   Password: {type:String},
-  DischargeForm: {type:String},
-  COVID19TestResults: {type:String},
+  DischargeForm: Schema.Types.Mixed,
+  COVID19TestResults: Schema.Types.Mixed,
   Screening1: {type:String},
   DonateConsent: {type:String},
   ResearchConsent: {type:String} 

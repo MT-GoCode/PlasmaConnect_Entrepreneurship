@@ -9,7 +9,7 @@ let donorQueueSchema = require('../models/DonorQueue');
 
 router.route('/researchSearch').get((req, res) => {
   console.log(req.body);
-  donorQueueSchema.find({}, 'FirstName LastName Email PhoneNumber State ZipCode', function(error, data) {
+  donorQueueSchema.find({}, function(error, data) {
     if (error) {
       return next(error)
     } else {
@@ -21,19 +21,19 @@ router.route('/researchSearch').get((req, res) => {
 
 
 router.post("/donateSearch", (req, res) => {
-  // console.log(req.body);
-  console.log('f')
+  console.log('efwefwef');
+  console.log(req.body)
 
   
   donorQueueSchema.find( //req.body
-    {'FirstName': { $regex: "Minh", $options: "i" }}
+    {'FirstName': { $regex: req.body.FirstName, $options: "i" }}
     // {State: req.body.desiredState,
     // City: req.body.desiredCity,
     // ZipCode: req.body.desiredZip,
     // DonateConsent: 'true'}
-  , 'FirstName LastName Email PhoneNumber StreetAddress State ZipCode City', function(error, data) {
+  , '', function(error, data) {
     if (error) {
-      return next(error)
+      console.log(error)
     } else {
       res.json(data);
       console.log(data);
