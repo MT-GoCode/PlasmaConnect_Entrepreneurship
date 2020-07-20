@@ -2,7 +2,6 @@ const express = require('express');
 const multer = require('multer');
 const AWS = require('aws-sdk');
 const fs = require('fs');
-const keys = require('./keys.js');
 var cors = require('cors');
 const { generateKeyPair } = require('crypto');
 
@@ -24,8 +23,8 @@ const upload = multer({ storage: storage });
 //The region should be the region of the bucket that you created
 //Visit this if you have any confusion - https://docs.aws.amazon.com/general/latest/gr/rande.html
 AWS.config.update({
-    accessKeyId: keys.iam_access_id,
-    secretAccessKey: keys.iam_secret,
+    accessKeyId: process.env.iam_access_id,
+    secretAccessKey: process.env.iam_secret,
     region: 'us-west-1',
 });
 
@@ -57,7 +56,7 @@ function uploadFile(source, targetName, mimetype, res) {
     fs.readFile(source, function (err, filedata) {
         if (!err) {
             const putParams = {
-                Bucket: 'plasma-donations',
+                Bucket: process.env.Bucket,
                 Key: targetName,
                 Body: filedata,
                 ContentType: mimetype,
@@ -76,7 +75,7 @@ function uploadFile(source, targetName, mimetype, res) {
                     fs.unlink(source, () => { console.log('') });// Deleting the file from uploads folder(Optional).Do Whatever you prefer.
                     console.log('Successfully uploaded the file', data);
                     // console.log(targetName)
-                    var s3url = s3.getSignedUrl('getObject', { Key: targetName, Bucket: 'plasma-donations' });
+                    var s3url = s3.getSignedUrl('getObject', { Key: targetName, Bucket: process.env.Bucket });
                     console.log(s3url)
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({
@@ -99,7 +98,7 @@ function uploadFile(source, targetName, mimetype, res) {
 function retrieveFile(filename, res) {
     
     const getParams = {
-        Bucket: 'plasma-donations',
+        Bucket: process.env.Bucket,
         Key: filename
     };
     console.log(getParams)

@@ -4,7 +4,6 @@ import { AvForm, AvField, AvRadio, AvRadioGroup } from 'availity-reactstrap-vali
 import { Link } from "react-router-dom";
 import axios from 'axios';
 // import InputForm from "../tests/testUpload"
-import handleUpload from "../uploadFuncsClient"
 
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
@@ -24,16 +23,6 @@ class HelpCenterSupportRequest extends Component {
                 { id: 3, name: "Support" },
             ],
         }
-    }
-
-    uploadHandler = async (e, values) => {
-        let promise = new Promise((resolve, reject) => {
-            resolve(handleUpload(e, [this.uploadInputDF, this.uploadInputTR]))
-        }).then(data => data
-        )
-        let res = await promise
-        return res
-        // handleUpload(e, [this.uploadInputDF, this.uploadInputTR], values).then(data => {console.log(data)})
     }
 
     upload = async (uploadInput) => {
