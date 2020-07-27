@@ -156,6 +156,7 @@ class DonorDetails extends Component {
                                         <li className="h6"><i><FeatherIcon icon="globe" className="fea icon-sm text-warning mr-2" /></i><span className="text-muted">Country :</span> UK</li>
                                         <li className="h6"><i><FeatherIcon icon="server" className="fea icon-sm text-warning mr-2" /></i><span className="text-muted">Postal Code :</span> 521452</li>
                                         <li className="h6"><i><FeatherIcon icon="phone" className="fea icon-sm text-warning mr-2" /></i><span className="text-muted">Mobile :</span> (+125) 1542-8452</li> */}
+                                <li className="h6"><a>Show Discharge Form</a></li>
                                 {this.state.filesLoaded ?
                                     this.state.files :
                                     <>Loading...</>
