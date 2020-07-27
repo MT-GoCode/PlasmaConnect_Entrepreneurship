@@ -39,9 +39,9 @@ app.post('/post_file', upload.single('demo_file'), function (req, res) {
 })
 
 //GET method route for downloading/retrieving file
-app.get('/get_file/:file_name', (req, res) => {
-    console.log('req received for get_file', req.params.file_name)
-    retrieveFile(req.params.file_name, res);
+app.get('/get_file', (req, res) => {
+    console.log('req received for get_file', req.query.key)
+    retrieveFile(req.query.key, res);
 });
 
 //listening to server 3000

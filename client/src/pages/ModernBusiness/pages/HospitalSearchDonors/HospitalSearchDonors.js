@@ -6,7 +6,7 @@ import axios from 'axios'
 import FeatherIcon from 'feather-icons-react';
 import SearchBar from './SearchBar';
 import DonorList from './DonorList'
-import DonorDetails from '../DonorDetails'
+import DonorDetails from './DonorDetails'
 
 
 class SignUpInfo extends Component {

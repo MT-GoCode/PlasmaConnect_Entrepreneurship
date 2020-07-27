@@ -131,7 +131,7 @@ class HelpCenterSupportRequest extends Component {
                                         <Card className="login_page border-0" style={{ zIndex: 1 }}>
                                             <CardBody className="p-0">
                                                 {/* <h4 className="card-title text-center">Sign up as a donor</h4> */}
-                                                <AvForm method="post" enctype="multipart/form-data" onValidSubmit={this.handleValidSubmit} className="login-form mt-4" ref={c => (this.form = c)}>
+                                                <AvForm method="post" encType="multipart/form-data" onValidSubmit={this.handleValidSubmit} className="login-form mt-4" ref={c => (this.form = c)}>
                                                     <Row>
                                                         <Col md="6">
                                                             <FormGroup className="position-relative">
@@ -151,7 +151,7 @@ class HelpCenterSupportRequest extends Component {
                                                                 <Label for="LastName">Last name <span className="text-danger">*</span></Label>
                                                                 <i><FeatherIcon icon="user-check" className="fea icon-sm icons" /></i>
                                                                 <AvField type="text" className="form-control pl-5" name="LastName" id="LastName" placeholder="Last Name" required
-                                                                    errorMdwessage=""
+                                                                    errormdwessage=""
                                                                     validate={{
                                                                         required: { value: true, errorMessage: "Please enter first name" },
                                                                     }}

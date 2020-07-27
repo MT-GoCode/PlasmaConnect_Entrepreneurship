@@ -20,9 +20,14 @@ class DonorDetails extends Component {
         }
     }
     fetchFiles = (fileName, contentType) => {
-        return axios(`s3/get_file/${fileName}`, {
-            method: 'GET',
+        // return axios(`s3/get_file/${fileName}`, {
+        //     method: 'GET',
             // responseType: 'blob' //Force to receive data in a Blob Format
+        return axios(`s3/get_file`, {
+            method: 'GET',
+            params : {
+                key: fileName
+            }
         }).then(res => {
             let input = {
                 data: "data:" + contentType + ";base64," + res.data,
