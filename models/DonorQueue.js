@@ -5,8 +5,11 @@ let donorQueueSchema = new Schema({
   FirstName: {type:String},
   LastName: {type:String},
   SocialSecurityNumber: {type:String},
-  DateOfBirth: {type:String},
-  Weight: {type:String},
+  DateOfBirth: {type:Date},
+  BloodType: {type:String},
+  Sex: {type:String}, 
+  Age: {type:Number}, 
+  Weight: {type:Number},
   Email: {type:String},
   PhoneNumber: {type:String},
   StreetAddress: {type:String},
@@ -19,7 +22,11 @@ let donorQueueSchema = new Schema({
   COVID19TestResults: Schema.Types.Mixed,
   Screening1: {type:String},
   DonateConsent: {type:String},
-  ResearchConsent: {type:String} 
+  ResearchConsent: {type:String},
+  location: {
+    type: { type: String },
+    coordinates: []
+  },
   // FirstName: {
   //   type: String
   // },
@@ -60,6 +67,8 @@ let donorQueueSchema = new Schema({
 }, {
     collection: 'DonorQueue'
   })
+
+donorQueueSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model('DonorQueue', donorQueueSchema)
 

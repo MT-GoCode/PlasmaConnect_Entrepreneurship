@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 // import InputForm from "../tests/testUpload"
 
+
 //Import Icons
 import FeatherIcon from 'feather-icons-react';
 
@@ -12,6 +13,8 @@ import FeatherIcon from 'feather-icons-react';
 import PageBreadcrumb from "../../../components/Shared/PageBreadcrumb";
 // let urls = []
 // window.urls = []
+
+
 class HelpCenterSupportRequest extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +25,8 @@ class HelpCenterSupportRequest extends Component {
                 { id: 2, name: "Help Center", link: "#" },
                 { id: 3, name: "Support" },
             ],
+            BloodType: 'A+',
+            Sex: 'Male'
         }
     }
 
@@ -47,39 +52,84 @@ class HelpCenterSupportRequest extends Component {
     postfile = (requestOptions) => {
         return fetch("/s3/post_file", requestOptions)
             .then(response => response.text())
-            .then(result => {                
+            .then(result => {
                 return result
             })
             .catch(error => console.log('error', error));
     }
 
+    getLatLng = (values) => {
+        return axios('https://maps.googleapis.com/maps/api/geocode/json', {
+            method: 'GET',
+            params: {
+                address: `${values.StreetAddress}, ${values.City}, ${values.StateCode}, ${values.ZipCode}`,
+                key: process.env.REACT_APP_GoogleMapsAPIKey
+
+            }
+        }).then(res => {
+            console.log(res.data.results[0].geometry.location)
+            return res.data.results[0].geometry.location
+
+        }).catch(err => {
+            console.log(err)
+            return 'error'
+        })
+    }
+
     handleValidSubmit = async (e, values) => {
+
         await this.upload([this.uploadInputDF, this.uploadInputTR]).then(data => {
             let DFData = JSON.parse(data[0])
-            DFData = {key: DFData.key, contentType: DFData.contentType}
+            DFData = { key: DFData.key, contentType: DFData.contentType }
             let TRData = JSON.parse(data[1])
-            TRData = {key: TRData.key, contentType: TRData.contentType}
-
+            TRData = { key: TRData.key, contentType: TRData.contentType }
             values.DischargeForm = DFData
             values.COVID19TestResults = TRData
+
+        })
+        await this.getLatLng(values).then(coords => {
+            console.log(coords)
+            return coords
+        }).then((coords) => {
+            if (coords == 'error') {
+                return ''
+            }
+            var today = new Date();
+            var birthDate = new Date(values.DateOfBirth);
+
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+
+            values.Age = age
+            values.BloodType = this.state.BloodType
+            values.Sex = this.state.Sex
+            values.location = {
+                    type: 'Point',
+                    coordinates: [coords.lng, coords.lat]
+                
+            }
+
+
             console.log(values)
+
             axios.post('/donorQueue/create-donor-queue', values)
-            .then(res => {
-                console.log('data uploaded')
-                // console.log(res.data);
-                // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
+                .then(res => {
+                    console.log('data uploaded')
+                    // console.log(res.data);
+                    // let final = [res.data[res.data.length - 2], res.data[res.data.length - 3]];
 
-                // this.setState({
-                //     donors: res.data
-                // })
-                this.form.reset()
-            });
-            
-        }
-
-        )
+                    // this.setState({
+                    //     donors: res.data
+                    // })
+                    this.form.reset()
+                });
+        })
         // this.uploadHandler(e, values).then(res => {
-            
+
         // })
         // console.log(res)
 
@@ -104,6 +154,15 @@ class HelpCenterSupportRequest extends Component {
         }
         else {
             document.getElementById('topnav').classList.remove('nav-sticky');
+        }
+    }
+    changeSelect = (field, e) => {
+        if (field === "BloodType") {
+            console.log(field)
+            this.setState({ BloodType: e })
+        }
+        if (field === "Sex") {
+            this.setState({ Sex: e })
         }
     }
 
@@ -193,6 +252,33 @@ class HelpCenterSupportRequest extends Component {
                                                                 />
                                                             </FormGroup>
                                                         </Col>
+
+                                                        <Col md="6">
+                                                            <FormGroup className="position-relative">
+                                                                <Label for="BloodType"> Blood Type <span className="text-danger">*</span></Label>
+                                                                <AvField onChange={(e) => { this.changeSelect("BloodType", e.target.value) }} value={this.state.BloodType} name="BloodType" id="BloodType" type="select" name="BloodType" >
+                                                                    <option>A+</option>
+                                                                    <option>A-</option>
+                                                                    <option>B+</option>
+                                                                    <option>B-</option>
+                                                                    <option>O+</option>
+                                                                    <option>O-</option>
+                                                                    <option>AB+</option>
+                                                                    <option>AB-</option>
+                                                                </AvField>
+                                                            </FormGroup>
+                                                        </Col>
+
+                                                        <Col md="6">
+                                                            <FormGroup className="position-relative">
+                                                                <Label for="Sex"> Sex <span className="text-danger">*</span></Label>
+                                                                <AvField onChange={(e) => { this.changeSelect("Sex", e.target.value) }} value={this.state.Sex} name="Sex" id="Sex" type="select" name="Sex" >
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </AvField>
+                                                            </FormGroup>
+                                                        </Col>
+
 
                                                         <Col md="6">
                                                             <FormGroup className="position-relative">
